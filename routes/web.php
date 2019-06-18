@@ -16,8 +16,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('roles', 'Admin/RoleController');
 
 //Rutas de Roles y Permisos - Marte, 09 de abril de 2019
 Route::get('notes', 'NotesController@index');
