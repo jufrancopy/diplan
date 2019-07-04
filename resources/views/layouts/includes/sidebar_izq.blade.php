@@ -17,12 +17,12 @@
             </a>
         </li>
         <li class="nav-item ">
-            <a class="nav-link" href="./icons.html">
+            <a class="nav-link" href="{{route('dashboard-foda')}}">
                 <i class="material-icons">account_balance</i>
-                <p>Gestion Institucional</p>
+                <p>FODA</p>
             </a>
         </li>
-        <li class="nav-item ">
+        <!-- <li class="nav-item ">
             <a class="nav-link" href="./user.html">
                 <i class="material-icons">person</i>
                 <p>Roles</p>
@@ -40,6 +40,6 @@
                 <i class="material-icons">library_books</i>
                 <p>Monitoreo</p>
             </a>
-        </li>
+        </li> -->
     </ul>
 </div>

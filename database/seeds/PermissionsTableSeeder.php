@@ -37,7 +37,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         DB::table('roles')->insert([
-            'name' => 'crud_actividades'
+            'name' => 'crud_actividades',
             'guard_name'=> 'web'
         ]);
     
