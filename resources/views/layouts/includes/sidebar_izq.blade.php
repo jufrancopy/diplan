@@ -11,34 +11,34 @@
 <div class="sidebar-wrapper">
     <ul class="nav">
         <li class="nav-item active  ">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="{{url('home')}}">
                 <i class="material-icons">dashboard</i>
                 <p>Administrador</p>
             </a>
         </li>
         <li class="nav-item ">
-            <a class="nav-link" href="./icons.html">
+            <a class="nav-link" href="{{route('organigramas.index')}}">
                 <i class="material-icons">account_balance</i>
                 <p>Gestion Institucional</p>
             </a>
         </li>
         <li class="nav-item ">
-            <a class="nav-link" href="./user.html">
+            <a class="nav-link" href="{{route('accesos')}}">
                 <i class="material-icons">person</i>
-                <p>Roles</p>
+                <p>Roles y Permisos</p>
             </a>
         </li>
         <li class="nav-item ">
-            <a class="nav-link" href="./tables.html">
+            <a class="nav-link" href="{{route('users.index')}}">
                 <i class="material-icons">content_paste</i>
-                <p>Permisos</p>
+                <p>Usuarios</p>
             </a>
         </li>
         
         <li class="nav-item ">
-            <a class="nav-link" href="./typography.html">
+            <a class="nav-link" href="#">
                 <i class="material-icons">library_books</i>
-                <p>Monitoreo</p>
+                <p>Organigrama</p>
             </a>
         </li>
     </ul>

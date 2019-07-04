@@ -3,7 +3,7 @@
 <!-- Fin de Cabecera-->
 <body class="">
   <div class="wrapper ">
-    <div class="sidebar" data-color="green" data-background-color="white" data-image="#">
+    <div class="sidebar" data-color="azure" data-background-color="white" data-image="#">
       <!-- Inicio Sidebar Izquierda -->
       @include('layouts.includes.sidebar_izq')
     </div>

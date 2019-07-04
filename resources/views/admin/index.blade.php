@@ -4,7 +4,7 @@
 
 <body class="">
   <div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+    <div class="sidebar" data-color="azure" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
       <!-- Inicio Sidebar Izquierda -->
       @include('layouts.includes.sidebar_izq')
     </div>
@@ -23,16 +23,16 @@
               <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                   <div class="card-icon">
-                    <i class="material-icons">local_library</i>
+                    <i class="material-icons">verified_user</i>
                   </div>
-                  <p class="card-category">Alumnos</p>
+                  <p class="card-category">Roles</p>
                   <h3 class="card-title">
-                    <small>11</small>
+                    <small>{{$totalRoles}}</small>
                   </h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats"><i class="material-icons">search</i>
-                  <a href="#">Ver todo</a>
+                  <a href="{{route('roles.index')}}">Ver todo</a>
                   </div>
                 </div>
               </div>
@@ -41,15 +41,15 @@
               <div class="card card-stats">
                 <div class="card-header card-header-success card-header-icon">
                   <div class="card-icon">
-                    <i class="material-icons">school</i>
+                    <i class="material-icons">visibility</i>
                   </div>
-                  <p class="card-category">Egresados</p>
-                  <h3 class="card-title">11</h3>
+                  <p class="card-category">Permisos</p>
+                  <h3 class="card-title">{{$totalPermisos}}</h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
                     <i class="material-icons">search</i>
-                    <a href="#">Ver todo</a>
+                    <a href="{{route('permisos.index')}}">Ver todo</a>
                   </div>
                 </div>
               </div>
@@ -58,15 +58,15 @@
               <div class="card card-stats">
                 <div class="card-header card-header-danger card-header-icon">
                   <div class="card-icon">
-                    <i class="material-icons">person</i>
+                    <i class="material-icons">faces</i>
                   </div>
-                  <p class="card-category">Profesores</p>
-                  <h3 class="card-title">11</h3>
+                  <p class="card-category">Usuarios</p>
+                  <h3 class="card-title">{{$totalUsuarios}}</h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
                     <i class="material-icons">search</i>
-                    <a href="#">Ver todo</a>
+                    <a href="{{route('users.index')}}">Ver todo</a>
                   </div>
                 </div>
               </div>
@@ -77,7 +77,7 @@
                   <div class="card-icon">
                     <i class="material-icons">description</i>
                   </div>
-                  <p class="card-category">Matriculados</p>
+                  <p class="card-category">Otros</p>
                   <h3 class="card-title">11</h3>
                 </div>
                 <div class="card-footer">

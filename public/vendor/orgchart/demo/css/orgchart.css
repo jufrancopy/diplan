@@ -1,0 +1,39 @@
+#chart-container { 
+    height:  620px; 
+}
+.orgchart { 
+    background: white; 
+}
+.orgchart { 
+    background: #fff; 
+}
+.orgchart td.left, .orgchart td.right, .orgchart td.top { 
+    border-color: #aaa; 
+}
+.orgchart td>.down { 
+    background-color: #aaa; 
+}
+.orgchart .gdts .title { 
+    background-color: #006699; 
+    }
+.orgchart .gdts .content { 
+    border-color: #006699; 
+    }
+.orgchart .gafs .title { 
+    background-color: #009933; 
+    }
+.orgchart .gafs .content { 
+    border-color: #009933; 
+    }
+.orgchart .gss .title { 
+    background-color: #993366; 
+    }
+.orgchart .gss .content { 
+    border-color: #993366; }
+.orgchart .gpes .title { 
+    background-color: #cc0066; 
+}
+.orgchart .gpes .content { 
+    border-color: #cc0066; 
+}
+  
