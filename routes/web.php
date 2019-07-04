@@ -15,6 +15,11 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard-foda', 'Admin\FodaController@dashboard')->name('dashboard-foda');
+Route::resource('fodas', 'Admin\FodaController');
+Route::get('foda-infra/infraestructura-list', 'Admin\FodaController@infraestructura')->name('foda-infra.infra');
+Route::get('foda-infra/talento-humano-list', 'Admin\FodaController@tthh')->name('foda-tthh.tthh');
+//Rutas de Roles y Permisos - Marte, 09 de abril de 2019
 Route::get('notes', 'NotesController@index');
 Route::get('notes/{id}/destroy', 'NotesController@destroy')->name('notes.destroy');
 // Route::group(['middleware' => ['permission:destroy_notes']], function () {
@@ -43,4 +48,7 @@ Route::group(['middleware' => ['auth']], function() {
     
     
 });
+
+
+
 

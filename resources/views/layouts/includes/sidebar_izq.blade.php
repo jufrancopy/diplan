@@ -17,13 +17,22 @@
             </a>
         </li>
         <li class="nav-item ">
+<<<<<<< HEAD
             <a class="nav-link" href="{{route('organigramas.index')}}">
+=======
+            <a class="nav-link" href="{{route('dashboard-foda')}}">
+>>>>>>> 241a26be8edd2bbe030de9237187923b504d412f
                 <i class="material-icons">account_balance</i>
-                <p>Gestion Institucional</p>
+                <p>FODA</p>
             </a>
         </li>
+<<<<<<< HEAD
         <li class="nav-item ">
             <a class="nav-link" href="{{route('accesos')}}">
+=======
+        <!-- <li class="nav-item ">
+            <a class="nav-link" href="./user.html">
+>>>>>>> 241a26be8edd2bbe030de9237187923b504d412f
                 <i class="material-icons">person</i>
                 <p>Roles y Permisos</p>
             </a>
@@ -40,6 +49,6 @@
                 <i class="material-icons">library_books</i>
                 <p>Organigrama</p>
             </a>
-        </li>
+        </li> -->
     </ul>
 </div>
