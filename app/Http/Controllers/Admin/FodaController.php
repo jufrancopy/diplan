@@ -9,6 +9,12 @@ use App\Admin\Foda;
 
 class FodaController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('auth');
+         
+    }
+    
     public function dashboard()
     {
         $totalInfraestructura       = Foda::where('nivel', '=', 'infraestructura')->count();
