@@ -8,3 +8,4 @@ class Foda extends Model
 {
     protected $table = 'foda_aspectos';
 }
+

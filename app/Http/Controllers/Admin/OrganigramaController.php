@@ -15,20 +15,30 @@ class OrganigramaController extends Controller
      */
     public function index()
     {
-        $dependencias = Organigrama::groupBy('rango')
-            ->selectRaw('count(*) as total, rango')
-            ->get();
         
-
+        $consejo = Organigrama::where('cod', '=', 'ca')->get();
+        $gerencias = Organigrama::where('orden', '=', 0)->where('cod','!=', 'ca')->get();
         
-        $gerencias = Organigrama::where('rango', '=', 'gerencia')->get();
-        dd($gerencias = Organigrama::where('rango', '=', 'direccion')->get());
-        // $presidencias = SubGerencia::where('gerencias_id', '=', 2)->get();
-        // $gdts = SubGerencia::where('gerencias_id', '=', 3)->get();
-        // $gafs = SubGerencia::where('gerencias_id', '=', 4)->get();
-        // $gss = SubGerencia::where('gerencias_id', '=', 5)->get();
-        // $gals = SubGerencia::where('gerencias_id', '=', 6)->get();
-        // $gpes = SubGerencia::where('gerencias_id', '=', 7)->get();
+        //Gerencia de Desarrollo y Tecnologia   
+        $gdt = Organigrama::where('cod', '=', 'gdt')->take(1)->get();
+        $dgdts = Organigrama::where('cod', '=', 'gdt' )->where('orden','!=', 0)->get();
+        
+        //Gerencia Administrativa y Financiera
+        $gaf = Organigrama::where('cod', '=', 'gaf')->take(1)->get();
+        $dgafs = Organigrama::where('cod', '=', 'gaf' )->where('orden','!=', 0)->get();
+        
+        //Gerencia de Salud
+        $gs = Organigrama::where('cod', '=', 'gs')->take(1)->get();
+        $dgss = Organigrama::where('cod', '=', 'gs' )->where('orden','!=', 0)->get();
+        
+        //Gerencia de Abastecimiento y Logistica
+        $gal = Organigrama::where('cod', '=', 'gal')->take(1)->get();
+        $dgals = Organigrama::where('cod', '=', 'gal' )->where('orden','!=', 0)->get();
+        
+        //Gerencia de Prestaciones Economicas del Seguro Social
+        $gpess = Organigrama::where('cod', '=', 'gpess')->take(1)->get();
+        $dgpesss = Organigrama::where('cod', '=', 'gpess' )->where('orden','!=', 0)->get();;
+        
 
 
 
