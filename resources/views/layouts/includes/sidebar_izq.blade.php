@@ -23,7 +23,7 @@
             </a>
         </li>
         <li class="nav-item ">
-            <a class="nav-link" href="{{route('dashboard-foda')}}">
+            <a class="nav-link" href="{{route('fodas.index')}}">
                 <i class="material-icons">visibility</i>
                 <p>FODA</p>
             </a>
@@ -46,6 +46,6 @@
                 <i class="material-icons">library_books</i>
                 <p>Organigrama</p>
             </a>
-        </li> -->
+        </li>
     </ul>
 </div>

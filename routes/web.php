@@ -9,46 +9,31 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/dashboard-foda', 'Admin\FodaController@dashboard')->name('dashboard-foda');
-Route::resource('fodas', 'Admin\FodaController');
-Route::get('foda-infra/infraestructura-list', 'Admin\FodaController@infraestructura')->name('foda-infra.infra');
-Route::get('foda-infra/talento-humano-list', 'Admin\FodaController@tthh')->name('foda-tthh.tthh');
-//Rutas de Roles y Permisos - Marte, 09 de abril de 2019
-Route::get('notes', 'NotesController@index');
-Route::get('notes/{id}/destroy', 'NotesController@destroy')->name('notes.destroy');
-// Route::group(['middleware' => ['permission:destroy_notes']], function () {
-// Route::get('notes/{id}/destroy', 'NotesController@destroy')->name('notes.destroy');
-// });
+Route::get('/foda-amb-interno', 'Admin\FodaController@fodaAmbInterno')->name('foda-amb-interno');
 
-//Rutas de Roles y Permisos
 
 
 Route::group(['middleware' => ['auth']], function () {
-    // Route::resource('usuarios', 'Admin\UsuarioController');
-    //Route::resource('roles', 'Admin\RoleController');
+    //Rutas del tipo Resource
     Route::resource('permisos', 'Admin\PermissionController');
-    //Route::resource('roles', 'Admin\RoleController');
-    Route::get('accesos', 'Admin\AccesoController@index')->name('accesos');
-});
-
-Route::group(['middleware' => ['auth']], function() {
-    Route::resource('roles','Admin\RoleController');
-    Route::resource('users','Admin\UserController');
-    Route::resource('products','Admin\ProductController');
-    Route::resource('institucionales','Admin\InstitucionalController');
+    Route::resource('roles', 'Admin\RoleController');
+    Route::resource('users', 'Admin\UserController');
+    Route::resource('products', 'Admin\ProductController');
+    Route::resource('institucionales', 'Admin\InstitucionalController');
     Route::resource('organigramas', 'Admin\OrganigramaController');
-    //Route::get('organigrama', 'Admin\OrganigramaController@organigrama')->name('organigrama');
+    Route::resource('fodas', 'Admin\FodaController');
     
+    //Rutas del tipo get
+    Route::get('accesos', 'Admin\AccesoController@index')->name('accesos');
+    Route::get('foda/analisis-fortaleza/{id}', 'Admin\FodaController@analisisFortaleza')->name('analisis.fortaleza');
+    Route::get('foda/analisis-debilidad/{id}', 'Admin\FodaController@analisisDebilidad')->name('analisis.debilidad');
+    Route::get('foda-search', 'Admin\FodaController@fodaSearch')->name('foda.search');
     
     
 });
-
-
-
-

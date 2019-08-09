@@ -6,7 +6,7 @@
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header card-header-primary">
-						<h4 class="card-title ">Panel de Foda</h4>
+						<h4 class="card-title ">Listado de <b>{{$fodas[0]->nivel}}</b></h4>
 						
 					</div>
 
@@ -37,14 +37,14 @@
 									</tr>
 								</thead>
 								<tbody>
-									@foreach($infraestructuras as $infraestructura)
+									@foreach($fodas as $foda)
 									<tr>
 										<td><i class="material-icons">call_received
 
 											</i></td>
-										<td>{{$infraestructura->aspecto}}</td>
+										<td>{{$foda->aspecto}}</td>
 
-										@switch($infraestructura->tipo)
+										@switch($foda->tipo)
 
 											@case('fortaleza')
 											<td class="badge badge-success">Fortaleza</td>
@@ -69,12 +69,12 @@
 
 
 										<td width="5px">
-											<a href="{{route('foda-infra.fortaleza', $infraestructura->id) }}" class="btn btn-sm btn">
+											<a href="{{route('analisis.fortaleza', $foda->id) }}" class="btn btn-sm btn">
 												fortaleza
 											</a>
 										</td>
 										<td width="5px">
-											<a href="{{route('foda-infra.debilidad', $infraestructura->id)}}" class="btn btn-sm btn">
+											<a href="{{route('analisis.debilidad', $foda->id)}}" class="btn btn-sm btn">
 												Debilidad
 											</a>
 										</td>
