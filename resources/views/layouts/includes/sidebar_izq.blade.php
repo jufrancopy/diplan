@@ -23,7 +23,7 @@
             </a>
         </li>
         <li class="nav-item ">
-            <a class="nav-link" href="{{route('fodas.index')}}">
+            <a class="nav-link" href="{{route('fodas-dashboard')}}">
                 <i class="material-icons">visibility</i>
                 <p>FODA</p>
             </a>
