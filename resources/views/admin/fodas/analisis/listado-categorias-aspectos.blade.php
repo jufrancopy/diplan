@@ -1,6 +1,5 @@
 @extends('layouts.master')
 @section('content')
-<link href="http://www.japurahei.com/css/jqtree.css" rel="stylesheet">
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -27,14 +26,13 @@
     </div>
 </div>
     @section('scripts')
-    <script src="http://www.japurahei.com/recursos/tree/tree.jquery.js"></script>
     <script>
         var data = [
             @foreach($analisis->aspectos as $aspecto)
         {
             name: '{{$aspecto->nombre}}',
             children: [
-                { name: '<a href="{{ route('foda-analisis.edit', $analisis->id) }}">Analizar</a>'},
+                { name: '<table><tr><td><a href="{{ route('foda-analisis.edit', $analisis->id) }}">Analizar</a></td>@switch($analisis->tipo)@case('Fortaleza')<td class="badge badge-success">Fortaleza</td>@break @case('Oportunidad')<td class="badge badge-info">Oportunidad</td>@break @case('Debilidad')<td class="badge badge-danger">Debilidad</td> @break @case('Amenaza') <td class="badge badge-warning">Amenaza</td> @break @default <td>Pendiente</td>@endswitch</tr></table>'},
             ]
         },
         @endforeach   

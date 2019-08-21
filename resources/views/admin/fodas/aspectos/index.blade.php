@@ -13,7 +13,7 @@
 
                 <div class="card">
                     <div class="card-header card-header-info">
-                        <h4 class="card-title ">Categorias</h4>
+                        <h4 class="card-title ">Listado de Aspectos</h4>
                         @can('role-create')
                         <a class="btn btn-success" href="{{ route('foda-aspectos.create') }}"> Crear Nuevo Aspecto</a>
                         @endcan

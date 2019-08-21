@@ -22,7 +22,7 @@
 </div>
 <!--   Core JS Files   -->
 <script src="{{ asset('js/jquery.js') }}"></script>
-
+<script src="{{ asset('js/tree.jquery.js') }}"></script>
 <script src="{{ asset('js/jquery.validate.js') }}"></script>
 <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>

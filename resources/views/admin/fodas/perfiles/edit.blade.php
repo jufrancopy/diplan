@@ -6,7 +6,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-info">
-            <h4 class="card-title ">Editar Materia</h4>
+            <h4 class="card-title ">Editar Perfil</h4>
           </div>
           <div class="card-body">
           {!! Form::model($perfil, ['route'=>['foda-perfiles.update', $perfil->id],

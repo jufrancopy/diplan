@@ -9,7 +9,6 @@
                         <h4 class="card-title ">{{$aspecto[0]->nombre}}</h4>
                     </div>
                     <div class="card-body">
-
                         {!! Form::open(['route' => 'foda-analisis.store','files'=>true]) !!}
                         @include('admin.fodas.analisis.partials.form')
                         {!! Form::close() !!}

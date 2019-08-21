@@ -35,7 +35,6 @@ class FodaAnalisisController extends Controller
 
     public function index(Request $request)
     {
-        
         $analizados = FodaAnalisis::orderBy('id', 'ASC')->get();
         $aspectos=$analizados->aspectos()->orderBy('nombre', 'ASC')->get();
         
@@ -60,7 +59,8 @@ class FodaAnalisisController extends Controller
         
     }
 
-    public function listadoCategoriaAspectos(Request $request){
+    public function listadoCategoriaAspectos(Request $request)
+    {
         $idPerfil = $request->idPerfil;
         $analisis= FodaAnalisis::where('perfil_id', '=', $idPerfil)->firstOrFail();
         

@@ -30,13 +30,13 @@
 										<tr>
 											<td><h1><b>INTERNO</b></h1></td>
 											<td><p class="btn btn-success btn-lg">Fortalezas<p> <p class="btn btn-danger btn-lg">Debilidades<p></td>
-											<td><a href="{{route('foda-ambiente-interno', $perfil->id)}}"><button class="btn btn-warning">Ver</button></a></td>
+											<td><a href="{{route('foda-ambiente-interno', $perfil->id)}}"><button class="btn btn-default">Configurar</button></a></td>
 										</tr>
 
 										<tr>
 											<td><h1><b>EXTERNO</b></h1></td>
 											<td><p class="btn btn-success btn-lg">Oportunidades<p> <p class="btn btn-danger btn-lg">Amenazas<p></td>
-											<td><a href="{{route('foda-ambiente-externo', $perfil->id)}}"><button class="btn btn-warning">Analizar</button></a></td>
+											<td><a href="{{route('foda-ambiente-externo', $perfil->id)}}"><button class="btn btn-default">Configurar</button></a></td>
 										</tr>
 										
 									</table>

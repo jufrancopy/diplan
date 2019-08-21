@@ -1,5 +1,4 @@
 @extends('layouts.master') 
-
 @section('content')
 <div class="content">
     <div class="container-fluid">
@@ -13,7 +12,7 @@
 
                 <div class="card">
                     <div class="card-header card-header-info">
-                        <h4 class="card-title ">Categorias</h4>
+                        <h4 class="card-title ">Listado de Categorias</h4>
                         @can('role-create')
                         <a class="btn btn-success" href="{{ route('foda-categorias.create') }}"> Crear Nueva Categoria</a>
                         @endcan
