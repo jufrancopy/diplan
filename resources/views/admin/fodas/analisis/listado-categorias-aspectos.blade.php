@@ -11,7 +11,7 @@
                 @endif
                 <div class="card">
                     <div class="card-header card-header-info">
-                        <h4 class="card-title ">Perfiles</h4>
+                        <h4 class="card-title ">{{ isset($analisis[0]->perfil->nombre) ? $analisis[0]->perfil->nombre : '' }} </h4>
                        
                         <div class="pull-right">
                             <a class="btn btn-warning" href="{{ route('fodas-dashboard') }}"> Atras</a>
@@ -28,11 +28,49 @@
     @section('scripts')
     <script>
         var data = [
-            @foreach($analisis->aspectos as $aspecto)
+            @foreach($analisis as $valor)
         {
-            name: '<table><tr><td>{{$aspecto->nombre}}</td>@switch($analisis->tipo)@case('Fortaleza')<td class="badge badge-success">Fortaleza</td>@break @case('Oportunidad')<td class="badge badge-info">Oportunidad</td>@break @case('Debilidad')<td class="badge badge-danger">Debilidad</td> @break @case('Amenaza') <td class="badge badge-warning">Amenaza</td> @break @default <td>Pendiente</td>@endswitch</tr></table>',
+            name: '{{$valor->aspecto->nombre}}@switch($valor->tipo)@case('Fortaleza')<p class="badge badge-success">Fortaleza</p>@break @case('Oportunidad')<p class="badge badge-info">Oportunidad</p>@break @case('Debilidad')<p class="badge badge-danger">Debilidad</td> @break @case('Amenaza') <p class="badge badge-warning">Amenaza</p> @break @default <p>Pendiente</p>@endswitch',
             children: [
-                { name: '<table><tr><td><a href="{{ route('foda-analisis.edit', $analisis->id) }}">Analizar</a></td>@switch($analisis->tipo)@case('Fortaleza')<td class="badge badge-success">Fortaleza</td>@break @case('Oportunidad')<td class="badge badge-info">Oportunidad</td>@break @case('Debilidad')<td class="badge badge-danger">Debilidad</td> @break @case('Amenaza') <td class="badge badge-warning">Amenaza</td> @break @default <td>Pendiente</td>@endswitch</tr></table>'},
+                { name: 
+                    '<table class="table table-bordered">'+
+                    '<tr>'+
+                        '<th>Impacto</th>'+
+                        '<th>Ocurrencia</ht>'+
+                        '<th>Ponderación</ht>'+
+                        '<th>Acciones</h>'+
+                        '</tr>'+
+                    '<tr>'+
+                    @switch($valor->ocurrencia) 
+                        @case('0.1')'<td>Baja ({{$valor->ocurrencia}})</td>'+ @break
+                        @case('0.3')'<td>Media ({{$valor->ocurrencia}})</td>'+ @break                             
+                        @case('0.5')'<td>Alta ({{$valor->ocurrencia}})</td>' + @break
+                        @case('0.7')'<td>Muy Alta ({{$valor->ocurrencia}})</td>' + @break  
+                        @case('0.9')'<td>Cierta ({{$valor->ocurrencia}})</td>'+ @break 
+                    @endswitch
+
+                    @switch($valor->impacto) 
+                        @case('0.05')'<td>Muy Bajo ({{$valor->impacto}})</td>'+ @break
+                        @case('0.1')'<td>Bajo ({{$valor->impacto}})</td>'+ @break                             
+                        @case('0.2')'<td>Moderado ({{$valor->impacto}})</td>' + @break
+                        @case('0.4')'<td>Alto ({{$valor->impacto}})</td>' + @break  
+                        @case('0.8')'<td>Muy Alto ({{$valor->impacto}})</td>'+ @break 
+                    @endswitch
+                    
+                    @php 
+                        $total = $valor->ocurrencia * $valor->impacto;
+                        
+                    @endphp
+                    
+                    @switch ($total) 
+                        @case($total >= 0.18)'<td class="badge badge-success">Suficiente ({{$total}})</td>'+ @break
+                        @case($total < 0.18)'<td class="badge badge-danger">Insuficiente ({{$total}})</td>'+ @break
+                    @endswitch
+
+                        '<td>'+'<a href="{{ route('foda-analisis.edit', $valor->id) }}">Analizar</i></a></td></tr>'+
+                    '</table>'
+                
+                },
             ]
         },
         @endforeach   

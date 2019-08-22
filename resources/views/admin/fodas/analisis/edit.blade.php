@@ -6,18 +6,14 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-info">
-          
-            <h4 class="card-title ">{{$aspecto->nombre}}</h4>
-          
+            <h4 class="card-title ">Editar Perfil</h4>
           </div>
           <div class="card-body">
-            {!! Form::model($analisis, ['route'=>['foda-analisis.update', $analisis->id],
-            'method'=>'PUT']) !!}
+          {!! Form::model($analisis, ['route'=>['foda-analisis.update', $analisis->id],
+			'method'=>'PUT'])	!!}
+				@include('admin.fodas.analisis.partials.form')
 
-
-            @include('admin.fodas.analisis.partials.form')
-
-            {!! Form::close() !!}
+				{!! Form::close() !!}
           </div>
         </div>
       </div>

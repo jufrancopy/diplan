@@ -28,18 +28,24 @@
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
+                                    <!-- Campos ocultos que se insertan en la tabla foda_analisis. -->
                                     {{ Form::hidden('user_id', auth()->user()->id) }}
                                     {{ Form::hidden('perfil_id', $idPerfil) }}
                                     {{ Form::hidden('tipo', 'Pendiente') }}
+                                    {{ Form::hidden('ocurrencia', 0) }}
+                                    {{ Form::hidden('impacto', 0) }}
+                                    
+                                    <!-- Esta parte del Codigo Imprime los aspectos relacionados a la categoria seleccionada -->
                                     <strong>Listado de Aspectos:</strong>
                                     <br /> @foreach($aspectos as $value)
                                     <label>{{ Form::checkbox('aspecto_id[]', $value->id, false, array('class' => 'name')) }}
                                         {{ $value->nombre }}</label>
                                     <br /> @endforeach
+                                
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                                <button type="submit" class="btn btn-success">Analizar</button>
+                                <button type="submit" class="btn btn-success">Asignar Aspectos</button>
                             </div>
                         </div>
                         {!! Form::close() !!}

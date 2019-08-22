@@ -8,7 +8,7 @@ class FodaAnalisis extends Model
 {
     protected $table = "foda_analisis";
     
-    protected $fillable = ['user_id','perfil_id','tipo', 'ocurrencia','impacto'];
+    protected $fillable = ['user_id','perfil_id', 'aspecto_id','tipo', 'ocurrencia','impacto'];
 
     public function categoria(){
         return $this->belongsTo(FodaCategoria::class);
@@ -25,7 +25,7 @@ class FodaAnalisis extends Model
     }
     
     public function perfil(){
-        return $this->belongsTo(FodaPerfil::class);
+        return $this->belongsTo('App\Admin\FodaPerfil');
     }
 
     public function scopeNombre($query, $nombre)

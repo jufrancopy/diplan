@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 use App\Http\Controllers\Controller;
+use DB;
 
 use App\Admin\FodaAspecto;
 use App\Admin\FodaCategoria;
@@ -52,23 +53,23 @@ class FodaAnalisisController extends Controller
     }
 
     public function listadoPerfiles(Request $request){
+        
         $perfiles=FodaPerfil::nombre($request->get('nombre'))->orderBy('id','DESC')->paginate(10);
-
+        
         return view('admin.fodas.analisis.perfiles', get_defined_vars())
             ->with('i', ($request->input('page', 1) - 1) * 5);
+            
         
     }
 
     public function listadoCategoriaAspectos(Request $request)
     {
-        $idPerfil = $request->idPerfil;
-        $analisis= FodaAnalisis::where('perfil_id', '=', $idPerfil)->firstOrFail();
-        
-        $aspectos=$analisis->aspectos()->orderBy('nombre', 'ASC')->firstOrFail();
+        $perfil_id = $request->idPerfil;
+        $analisis= FodaAnalisis::where('perfil_id', '=', $perfil_id)->get();
+        $perfiles=FodaPerfil::nombre($request->get('nombre'))->orderBy('id','DESC')->paginate(10);
         
         return view('admin.fodas.analisis.listado-categorias-aspectos', get_defined_vars())
             ->with('i', ($request->input('page', 1) - 1) * 5);
-        
     }
 
     public function categoriasAmbienteInterno(Request $request, $idPerfil)
@@ -100,8 +101,6 @@ class FodaAnalisisController extends Controller
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
-    
-
     /**
      * Show the form for creating a new resource.
      *
@@ -127,8 +126,18 @@ class FodaAnalisisController extends Controller
      */
     public function store(Request $request)
     {
-        $analisis = FodaAnalisis::create($request->except(['aspecto_id']));
-        $analisis->aspectos()->attach($request->aspecto_id);
+    $count = count($request->input('aspecto_id'));
+    for($i = 0; $i < $count; ++$i){
+
+        $analisis = FodaAnalisis::create([
+            'user_id'       => $request->user_id, 
+            'aspecto_id'    => $request->aspecto_id[$i],
+            'perfil_id'     => $request->perfil_id,
+            'tipo'          => $request->tipo,
+            'ocurrencia'    => $request->ocurrencia,
+            'impacto'       => $request->impacto,
+            ]);
+        }   
 
         return redirect()->route('foda-listado-categorias-aspectos', $analisis->perfil_id)
             ->with('success','Analisis creado satisfactoriamente');
@@ -169,9 +178,7 @@ class FodaAnalisisController extends Controller
     public function edit(Request $request, $id)
     {
         $analisis = FodaAnalisis::find($id);
-        $aspectos=$analisis->aspectos()->orderBy('nombre', 'ASC')->get();
-        
-        $aspectoID = $aspectos[0]->id;
+        $aspectoID = $analisis->aspecto_id;
         $aspecto = FodaAspecto::where('id', '=', $aspectoID)->get();
         
         $idCategoria = $aspecto[0]->categoria_id;
@@ -204,7 +211,7 @@ class FodaAnalisisController extends Controller
         $analisis->fill($request->all())->save();
         
         return redirect()->route('foda-listado-categorias-aspectos', $analisis->perfil_id)
-            ->with('success','Analisis creado satisfactoriamente');
+            ->with('success','Analizado satisfactoriamente');
     
     }
 

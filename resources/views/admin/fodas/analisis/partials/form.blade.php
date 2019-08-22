@@ -6,17 +6,17 @@
  
 @if ($ambiente[0]->ambiente == 'Interno')
  <label>
-        {{  Form::radio('tipo', 'Fortaleza')}} Fortaleza
+        {{  Form::radio('tipo', 'Fortaleza')}} <p class="badge badge-success">Fortaleza</p>
     </label>
     <label>
-        {{  Form::radio('tipo', 'Debilidad')}} Debilidad
+        {{  Form::radio('tipo', 'Debilidad')}} <p class="badge badge-danger">Debilidad</p>
     </label>
 @else
 <label>
-        {{  Form::radio('tipo', 'Oportunidad')}} Oportunidad
+        {{  Form::radio('tipo', 'Oportunidad')}} <p class="badge badge-success">Oportunidad</p>
     </label>
     <label>
-        {{  Form::radio('tipo', 'Amenaza')}} Amenaza
+        {{  Form::radio('tipo', 'Amenaza')}} <p class="badge badge-danger">Amenaza</p>
     </label>
 @endif
 </div>

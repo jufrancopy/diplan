@@ -11,8 +11,6 @@
           <div class="card-body">
           {!! Form::model($perfil, ['route'=>['foda-perfiles.update', $perfil->id],
 			'method'=>'PUT'])	!!}
-			
-
 				@include('admin.fodas.perfiles.partials.form')
 
 				{!! Form::close() !!}
