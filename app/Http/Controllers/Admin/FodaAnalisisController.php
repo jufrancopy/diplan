@@ -56,10 +56,9 @@ class FodaAnalisisController extends Controller
         
         $perfiles=FodaPerfil::nombre($request->get('nombre'))->orderBy('id','DESC')->paginate(10);
         
-        return view('admin.fodas.analisis.perfiles', get_defined_vars())
-            ->with('i', ($request->input('page', 1) - 1) * 5);
-            
         
+            return view('admin.fodas.analisis.perfiles', get_defined_vars())
+            ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     public function listadoCategoriaAspectos(Request $request)
@@ -68,8 +67,18 @@ class FodaAnalisisController extends Controller
         $analisis= FodaAnalisis::where('perfil_id', '=', $perfil_id)->get();
         $perfiles=FodaPerfil::nombre($request->get('nombre'))->orderBy('id','DESC')->paginate(10);
         
-        return view('admin.fodas.analisis.listado-categorias-aspectos', get_defined_vars())
+        if ($analisis->isNotEmpty()) {
+            // colección no está vacía
+            return view('admin.fodas.analisis.listado-categorias-aspectos', get_defined_vars())
             ->with('i', ($request->input('page', 1) - 1) * 5);
+        
+        } else {
+           // colección vacía
+           return view('admin.fodas.analisis.error', get_defined_vars())
+            ->with('i', ($request->input('page', 1) - 1) * 5);
+           
+        }
+        
     }
 
     public function categoriasAmbienteInterno(Request $request, $idPerfil)
