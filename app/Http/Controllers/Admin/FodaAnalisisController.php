@@ -93,11 +93,26 @@ class FodaAnalisisController extends Controller
         
     }
 
+
+    //Trabajado en fecha 23/08/2019 a las 15.00 hs
     public function analisisCategoriasAmbienteInterno(Request $request, $idPerfil)
     {
+        
         $idPerfil = $request->idPerfil;
+        
         $categorias = FodaCategoria::where('ambiente', '=', 'interno')->get();
+        //Llamar todas las categorias asociadas al perfil(tabla foda_perfiles), 
+        //donde ambiente(tabla Categoria) sea igual a "interno"
+        $perfil = FodaPerfil::find($idPerfil);
 
+        foreach ($perfil->categorias as $categoria) {
+            //obteniendo los datos de un menu específico
+                $categoria->pivot->categoria_id;
+        }
+        dd($categoria);
+        
+        
+        
         return view('admin.fodas.analisis.analisis-categorias', get_defined_vars())
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -107,7 +122,6 @@ class FodaAnalisisController extends Controller
         $idPerfil = $request->idPerfil;
         $categorias = FodaCategoria::where('ambiente', '=', 'externo')->get();
         
-
         return view('admin.fodas.analisis.analisis-categorias', get_defined_vars())
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -128,7 +142,6 @@ class FodaAnalisisController extends Controller
         $idPerfil = $request->idPerfil;
         $categorias = FodaCategoria::where('ambiente', '=', 'externo')->get();
         
-
         return view('admin.fodas.analisis.categorias', get_defined_vars())
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }

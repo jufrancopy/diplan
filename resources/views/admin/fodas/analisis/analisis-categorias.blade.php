@@ -27,7 +27,7 @@
                                     <div class="float-right">
                                         {!! Form::open(['route' => 'users.index','method' => 'GET', 'class'=>'navbar-form navbar-left pull-right','role'=>'search']) !!}
                                         <div class="form-group">
-                                            {!! Form::text('ci',null, ['class'=>'form-control','placeholder'=>'Buscar Usuario']) !!}
+                                            {!! Form::text('ci',null, ['class'=>'form-control','placeholder'=>'Buscar Categoria']) !!}
                                         </div>
                                         <button type="submit" class="btn btn-default pull-right">Buscar</button>
                                     </div>
@@ -36,15 +36,17 @@
                                     <!-- Fin Buscador -->
                                     <thead>
                                         <tr>
-                                            <th>Aspecto</th>
+                                            <th>Nro</th>
+                                            <th>Categorias</th>
                                             <th width="280px">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     @foreach ($categorias as $categoria)
                                         <tr>
+                                            <td>{{ ++$i }}</td>
                                             <td>{{ $categoria->nombre }}</td>
-                                            <td><a href="{{route('foda-aspectos-categoria', ['idCategoria' => $categoria->id, 'idPerfil' => $idPerfil])}}">Ver Aspectos</a></td>
+                                            <td><a href="{{route('foda-aspectos-categoria', ['idCategoria' => $categoria->id, 'idPerfil' => $idPerfil])}}">Asignar Aspectos</a></td>
                                         </tr>
                                         @endforeach
                                     </tbody>

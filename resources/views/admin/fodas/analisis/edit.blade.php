@@ -6,7 +6,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-info">
-            <h4 class="card-title ">Editar Perfil</h4>
+            <h4 class="card-title ">{{ isset($analisis->aspecto->nombre) ? $analisis->aspecto->nombre : '' }}</h4>
           </div>
           <div class="card-body">
           {!! Form::model($analisis, ['route'=>['foda-analisis.update', $analisis->id],

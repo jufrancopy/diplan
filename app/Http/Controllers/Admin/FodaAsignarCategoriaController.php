@@ -11,6 +11,10 @@ use App\Admin\FodaPerfil;
 
 class FodaAsignarCategoriaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,6 +22,7 @@ class FodaAsignarCategoriaController extends Controller
      */
     public function index(Request $request)
     {
+        
         $perfilCategorias = FodaAsignarCategoria::orderBy('id', 'ASC')->paginate(10);
         dd($perfilCategorias);
         return view ('admin.fodas.asignar-categorias.index', get_defined_vars())

@@ -46,7 +46,8 @@
                         @case('0.3')'<td>Media ({{$valor->ocurrencia}})</td>'+ @break                             
                         @case('0.5')'<td>Alta ({{$valor->ocurrencia}})</td>' + @break
                         @case('0.7')'<td>Muy Alta ({{$valor->ocurrencia}})</td>' + @break  
-                        @case('0.9')'<td>Cierta ({{$valor->ocurrencia}})</td>'+ @break 
+                        @case('0.9')'<td>Cierta ({{$valor->ocurrencia}})</td>'+ @break
+                    @default'<td>Pendiente</td>' + 
                     @endswitch
 
                     @switch($valor->impacto) 
@@ -55,6 +56,8 @@
                         @case('0.2')'<td>Moderado ({{$valor->impacto}})</td>' + @break
                         @case('0.4')'<td>Alto ({{$valor->impacto}})</td>' + @break  
                         @case('0.8')'<td>Muy Alto ({{$valor->impacto}})</td>'+ @break 
+                    @default'<td>Pendiente</td>' +
+                    
                     @endswitch
                     
                     @php 
