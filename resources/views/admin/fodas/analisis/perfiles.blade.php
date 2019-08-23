@@ -52,7 +52,7 @@
                                         <td>{{ $perfil->contexto }}</td>
                                         <td>
                                             
-                                            <a class="btn btn-sm btn-success" href="{{ route('foda-listado-categorias-aspectos',$perfil->id) }}"><i class="fa fa-search" aria-hidden="true"></i>
+                                            <a class="btn btn-sm btn-success" href="{{ route('foda-analisis-ambientes',$perfil->id) }}"><i class="fa fa-search" aria-hidden="true"></i>
 </a>
                                         </td>
                                     </tr>

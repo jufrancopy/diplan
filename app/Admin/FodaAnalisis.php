@@ -15,7 +15,7 @@ class FodaAnalisis extends Model
     }
 
     public function aspecto(){
-        return $this->belongsTo(FodaAspecto::class);
+        return $this->belongsTo('App\Admin\FodaAspecto');
     }
 
     public function aspectos(){

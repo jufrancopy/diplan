@@ -60,7 +60,19 @@ class FodaAnalisisController extends Controller
             return view('admin.fodas.analisis.perfiles', get_defined_vars())
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
+    public function seleccionarAmbiente(Request $request, $id){
+        $perfil=FodaPerfil::find($id);
+        $categorias=$perfil->categorias()->orderBy('nombre', 'ASC')->get();
+        
+        $categoriasChecked = [];
+        
+        foreach ($perfil->categorias as $categoria) {
+            $categoriasChecked[] = $categoria->id;
+        }
 
+        return view('admin.fodas.analisis.ambientes', get_defined_vars())
+            ->with('i', ($request->input('page', 1) - 1) * 5);
+    }
     public function listadoCategoriaAspectos(Request $request)
     {
         $perfil_id = $request->idPerfil;
@@ -80,6 +92,27 @@ class FodaAnalisisController extends Controller
         }
         
     }
+
+    public function analisisCategoriasAmbienteInterno(Request $request, $idPerfil)
+    {
+        $idPerfil = $request->idPerfil;
+        $categorias = FodaCategoria::where('ambiente', '=', 'interno')->get();
+
+        return view('admin.fodas.analisis.analisis-categorias', get_defined_vars())
+            ->with('i', ($request->input('page', 1) - 1) * 5);
+    }
+
+    public function analisisCategoriasAmbienteExterno(Request $request, $idPerfil)
+    {
+        $idPerfil = $request->idPerfil;
+        $categorias = FodaCategoria::where('ambiente', '=', 'externo')->get();
+        
+
+        return view('admin.fodas.analisis.analisis-categorias', get_defined_vars())
+            ->with('i', ($request->input('page', 1) - 1) * 5);
+    }
+
+    
 
     public function categoriasAmbienteInterno(Request $request, $idPerfil)
     {
