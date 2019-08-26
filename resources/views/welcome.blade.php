@@ -73,7 +73,7 @@
                 <div class="links">
                     <!-- Aqui pueden ir enlaces que se posiciona debajo del Logo -->
                     <h3>Sistema de Monitorio y Gestion</h3>
-                    <i class="material-icons">delete</i>
+                    <a href="{{ route('login') }}">Acceder</a>
                 </div>
             </div>
         </div>
