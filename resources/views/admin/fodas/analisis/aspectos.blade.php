@@ -34,6 +34,7 @@
                                     {{ Form::hidden('tipo', 'Pendiente') }}
                                     {{ Form::hidden('ocurrencia', 0) }}
                                     {{ Form::hidden('impacto', 0) }}
+                                    {{ Form::hidden('categoria_id', $idCategoria) }}
                                     
                                     <!-- Esta parte del Codigo Imprime los aspectos relacionados a la categoria seleccionada -->
                                     <strong>Listado de Aspectos:</strong>

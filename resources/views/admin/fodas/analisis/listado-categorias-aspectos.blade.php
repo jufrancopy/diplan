@@ -9,6 +9,8 @@
                     <p>{{ $message }}</p>
                 </div>
                 @endif
+
+                
                 <div class="card">
                     <div class="card-header card-header-info">
                         <h4 class="card-title ">{{ isset($analisis[0]->perfil->nombre) ? $analisis[0]->perfil->nombre : '' }} </h4>
@@ -17,9 +19,11 @@
                             <a class="btn btn-warning" href="{{ route('fodas-dashboard') }}"> Atras</a>
                         </div>
                     </div>
+
                     <div class="card-body">
-                    <p id="tree1"></p>
+                        <p id="tree1"></p>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -30,7 +34,14 @@
         var data = [
             @foreach($analisis as $valor)
         {
-            name: '{{$valor->aspecto->nombre}}@switch($valor->tipo)@case('Fortaleza')<p class="badge badge-success">Fortaleza</p>@break @case('Oportunidad')<p class="badge badge-info">Oportunidad</p>@break @case('Debilidad')<p class="badge badge-danger">Debilidad</td> @break @case('Amenaza') <p class="badge badge-warning">Amenaza</p> @break @default <p>Pendiente</p>@endswitch',
+            name: '{{$valor->aspecto->nombre}}'+
+            '@switch($valor->tipo)@case('Fortaleza')<p class="badge badge-success">Fortaleza</p>'+
+                '@break'+
+                    '@case('Oportunidad')<p class="badge badge-info">Oportunidad</p>@break'+ 
+                    '@case('Debilidad')<p class="badge badge-danger">Debilidad</td> @break'+
+                    '@case('Amenaza') <p class="badge badge-warning">Amenaza</p> @break'+ 
+                    '@default <p>Pendiente</p>'+
+                    '@endswitch',
             children: [
                 { name: 
                     '<table class="table table-bordered">'+
@@ -38,7 +49,7 @@
                         '<th>Impacto</th>'+
                         '<th>Ocurrencia</ht>'+
                         '<th>Ponderación</ht>'+
-                        '<th>Acciones</h>'+
+                        '<th colspan = 2>Acciones</h>'+
                         '</tr>'+
                     '<tr>'+
                     @switch($valor->ocurrencia) 
@@ -57,7 +68,6 @@
                         @case('0.4')'<td>Alto ({{$valor->impacto}})</td>' + @break  
                         @case('0.8')'<td>Muy Alto ({{$valor->impacto}})</td>'+ @break 
                     @default'<td>Pendiente</td>' +
-                    
                     @endswitch
                     
                     @php 
@@ -67,11 +77,21 @@
                     
                     @switch ($total) 
                         @case($total >= 0.18)'<td class="badge badge-success">Suficiente ({{$total}})</td>'+ @break
-                        @case($total < 0.18)'<td class="badge badge-danger">Insuficiente ({{$total}})</td>'+ @break
+                        @case($total <= 0.17)'<td class="badge badge-danger">Insuficiente ({{$total}})</td>'+ @break
+                        @case($total = 0)'<td >Pendiente</td>'+ @break
                     @endswitch
 
-                        '<td>'+'<a href="{{ route('foda-analisis.edit', $valor->id) }}">Analizar</i></a></td></tr>'+
-                    '</table>'
+                        '<td><a href="{{ route('foda-analisis.edit', $valor->id) }}">Analizar</i></a>'+
+                        '</td>'+
+                        '<td>'+
+                            '{!! Form::open(['route' => ['foda-analisis.destroy', $valor->id], 'method' => 'DELETE', 'style'=>'display:inline']) !!}'+
+                                '<button class= "btn btn-danger" onclick="return confirm(\'Estas seguro de eliminar el analisis?\')">'+
+                                    '<i class="fa fa-trash" aria-hidden="true"></i>'+
+                                '</button>'+
+                            '{!! Form::close() !!}'+
+                        '</td>'+
+                        '</tr>'+
+                        '</table>'
                 
                 },
             ]

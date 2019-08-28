@@ -38,7 +38,7 @@
                                         <tr>
                                             <th>Nro</th>
                                             <th>Categorias</th>
-                                            <th width="280px">Acciones</th>
+                                            <th colspan = 2>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -47,6 +47,7 @@
                                             <td>{{ ++$i }}</td>
                                             <td>{{ $categoria->nombre }}</td>
                                             <td><a href="{{route('foda-aspectos-categoria', ['idCategoria' => $categoria->id, 'idPerfil' => $idPerfil])}}">Asignar Aspectos</a></td>
+                                            <td><a href="{{route('foda-analisis-listado-categoria-aspectos', $idPerfil)}}">Ver</a></td>
                                         </tr>
                                         @endforeach
                                     </tbody>

@@ -24,6 +24,9 @@
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
     <!-- Estilos CSS agregados -->
     <link href="{{ asset('css/fontawesome-all.css') }}" rel="stylesheet">
     <link href="{{ asset('css/select2.css') }}" rel="stylesheet">
@@ -43,6 +46,14 @@
     
     <!--JQTree -->
     <link href="{{ asset('css/jqtree.js') }}" rel="stylesheet">
+     
+    <!--JQuery Modal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+
+
+
 
 
     <style>
