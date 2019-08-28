@@ -14,8 +14,11 @@
                 <div class="card">
                     <div class="card-header card-header-info">
                         <h4 class="card-title ">Categorias</h4>
-                        
+                        @can('role-create')
+                                <a class="btn btn-success" href="{{ route('foda-perfiles.edit', $idPerfil) }}"> Agregar Categorias</a>
+                        @endcan
                         <div class="pull-right">
+                        
                             <a class="btn btn-warning" href="{{ route('foda-perfiles.show', $idPerfil) }}"> Atras</a>
                         </div>
                     </div>
@@ -23,6 +26,7 @@
                     <div class="card-body">
                     <div class="table-responsive">
                                 <table class="table table-striped table-hover">
+                                
                                     <!-- AquiBuscador -->
                                     <div class="float-right">
                                         {!! Form::open(['route' => 'users.index','method' => 'GET', 'class'=>'navbar-form navbar-left pull-right','role'=>'search']) !!}
@@ -38,7 +42,7 @@
                                         <tr>
                                             <th>Nro</th>
                                             <th>Categorias</th>
-                                            <th colspan = 2>Acciones</th>
+                                            <th colspan = 3>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -47,7 +51,8 @@
                                             <td>{{ ++$i }}</td>
                                             <td>{{ $categoria->nombre }}</td>
                                             <td><a href="{{route('foda-aspectos-categoria', ['idCategoria' => $categoria->id, 'idPerfil' => $idPerfil])}}">Asignar Aspectos</a></td>
-                                            <td><a href="{{route('foda-analisis-listado-categoria-aspectos', $idPerfil)}}">Ver</a></td>
+                                            <td><a href="">Cuantos Anlisis dentro de la categoria?</a></td>
+                                            <td><a href="{{route('foda-analisis-listado-categoria-aspectos', ['idCategoria' => $categoria->id, 'idPerfil' => $idPerfil])}}">Ver</a></td>
                                         </tr>
                                         @endforeach
                                     </tbody>

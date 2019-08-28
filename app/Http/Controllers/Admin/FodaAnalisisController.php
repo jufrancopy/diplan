@@ -79,7 +79,15 @@ class FodaAnalisisController extends Controller
     public function listadoCategoriaAspectos(Request $request)
     {
         $perfil_id = $request->idPerfil;
-        $analisis = FodaAnalisis::where('perfil_id', '=', $perfil_id)->get();
+        $categoria_id = $request->idCategoria;
+
+        $analisis = FodaAnalisis::where('perfil_id', '=', $perfil_id)->where('categoria_id', '=', $categoria_id)
+            ->join('foda_aspectos', 'foda_analisis.aspecto_id', '=', 'foda_aspectos.id')
+            ->join('foda_categorias', 'foda_aspectos.categoria_id', '=', 'foda_categorias.id')
+            ->select('foda_analisis.*', 'foda_aspectos.nombre', 'foda_categorias.nombre', 'foda_categorias.ambiente')
+            ->with('aspecto')
+            ->get();
+        // $analisis = FodaAnalisis::where('perfil_id', '=', $perfil_id)->get();
         $perfiles = FodaPerfil::nombre($request->get('nombre'))->orderBy('id', 'DESC')->paginate(10);
 
         if ($analisis->isNotEmpty()) {
@@ -100,7 +108,7 @@ class FodaAnalisisController extends Controller
         $idPerfil = $request->idPerfil;
         $perfiles = FodaPerfil::find($idPerfil);
         $categorias = $perfiles->categorias()->where('ambiente', 'Interno')->get();
-        
+
         return view('admin.fodas.analisis.analisis-categorias', get_defined_vars())
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -110,6 +118,41 @@ class FodaAnalisisController extends Controller
         $idPerfil = $request->idPerfil;
         $perfiles = FodaPerfil::find($idPerfil);
         $categorias = $perfiles->categorias()->where('ambiente', 'Externo')->get();
+
+        //Como puedo contar los aspectos analizados de tabla-> (fodas_analisis) 
+        //con el $idPerfil
+        //tengo con el idPerfil que recibo en $request??
+        /*
+        TABLAS
+        -------------------------------------------------
+        FodaCategoria
+            id   |nombre          |ambiente
+            -------------------------------
+            1    | Infraestructura      |interno  
+            2    | Talento Humanos      |externo
+        
+        FodaAspecto--->categoria()belongsTo
+            id   |nombre                      |categoria_id
+            ------------------------------------------------
+            1    | Talento Humano Certificado |2
+
+        FodaPerfil--->categorias()belongsToMany
+            id   |nombre   
+            --------------
+            1    | 1      
+        
+        categorias_has_perfil
+            id   |perfil_id  | categoria_id
+            ------------------------------
+            1    | 1         |1   
+            2    | 1         |2
+
+        FodaAnalisis--->aspecto()belongsTo--->perfil()belongsTo
+            id   |perfil_id  | aspecto_id
+            ------------------------------
+            1    | 1         |1    
+        
+            */
 
         return view('admin.fodas.analisis.analisis-categorias', get_defined_vars())
             ->with('i', ($request->input('page', 1) - 1) * 5);
@@ -224,22 +267,11 @@ class FodaAnalisisController extends Controller
     {
         $analisis = FodaAnalisis::find($id);
         $aspectoID = $analisis->aspecto_id;
-        $aspecto = FodaAspecto::where('id', '=', $aspectoID)->get();
-
-        $idCategoria = $aspecto[0]->categoria_id;
-
-        $ambiente = FodaCategoria::where('id', '=', $idCategoria)->get();
-        $ambiente[0]->ambiente;
-        // Crear un array vac铆o para almacenar las materias.
-        $aspectosChecked = [];
-
-        // Obtener las materias relacionada a la matriculaci贸n actual.
-        foreach ($analisis->aspectos as $aspecto) {
-
-            // Acumular las materias en el array '$materiasChecked'.
-            $aspectosChecked[] = $aspecto->id;
-        }
-
+        $aspectos = FodaAspecto::find($aspectoID);
+        $categoriaID = $aspectos->categoria_id;
+        $categoria = FodaCategoria::find($categoriaID); 
+        $ambiente = $categoria->ambiente;
+        
         return view('admin.fodas.analisis.edit', get_defined_vars());
     }
 
@@ -252,10 +284,18 @@ class FodaAnalisisController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
+
         $analisis = FodaAnalisis::find($id);
+        $idPerfil = $analisis->perfil_id;
+        $aspectoID = $analisis->aspecto_id;
+        $aspectos = FodaAspecto::find($aspectoID);
+        $categoriaID = $aspectos->categoria_id;
+        $categoria = FodaCategoria::find($categoriaID); 
+        
         $analisis->fill($request->all())->save();
 
-        return redirect()->route('foda-listado-categorias-aspectos', $analisis->perfil_id)
+        return redirect()->route('foda-listado-categorias-aspectos', ['idCategoria' => $categoria->id, 'idPerfil' => $idPerfil])
             ->with('success', 'Analizado satisfactoriamente');
     }
 

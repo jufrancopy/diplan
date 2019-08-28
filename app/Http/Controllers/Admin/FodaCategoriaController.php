@@ -73,6 +73,7 @@ class FodaCategoriaController extends Controller
     public function edit($id)
     {
         $categoria=FodaCategoria::find($id);
+        
         return view('admin.fodas.categorias.edit', get_defined_vars());
     }
 
@@ -88,7 +89,6 @@ class FodaCategoriaController extends Controller
         $categoria=FodaCategoria::find($id);
         $categoria->fill($request->all())->save();
            
-        
         return redirect()->route('foda-categorias.index')
             ->with('success','Categoria actualizada satisfactoriamente');
        

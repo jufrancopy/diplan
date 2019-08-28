@@ -4,7 +4,7 @@
 <div class="form-group">
 {{  Form::label('tipo', 'Tipo:')    }}<br>
  
-@if ($ambiente[0]->ambiente == 'Interno')
+@if ($ambiente == 'Interno')
  <label>
         {{  Form::radio('tipo', 'Fortaleza')}} <p class="badge badge-success">Fortaleza</p>
     </label>
