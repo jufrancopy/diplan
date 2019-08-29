@@ -5,11 +5,15 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-info">
-                        <h4 class="card-title ">Seleccionar Aspectos a Analizar</b>
-                            <div class="pull-right">
-                                <a class="btn btn-warning pull-right" href="{{ route('roles.index') }}"> Atras</a>
-                            </div>
+                        <h4 class="card-title ">Aspectos de la Categoría {{$categoria->nombre}}</b>
+
+                        <div class="pull-right">
+                            <a class="btn btn-warning" href="{{route('foda-analisis-ambiente-interno', $idPerfil)}}"> Atras</a>
+                        </div>
+                        
                     </div>
+
+                    
 
                     @if (count($errors) > 0)
                     <div class="alert alert-danger">
@@ -35,26 +39,32 @@
                                     {{ Form::hidden('ocurrencia', 0) }}
                                     {{ Form::hidden('impacto', 0) }}
                                     {{ Form::hidden('categoria_id', $idCategoria) }}
-                                    
+
                                     <!-- Esta parte del Codigo Imprime los aspectos relacionados a la categoria seleccionada -->
+
+                                    @if (count($aspectos) > 1)
                                     <strong>Listado de Aspectos:</strong>
                                     <br /> @foreach($aspectos as $value)
-                                    <label>{{ Form::checkbox('aspecto_id[]', $value->id, false, array('class' => 'name')) }}
+                                    <label>{{ Form::checkbox('aspecto_id[]', $value->id, in_array($value->id, $aspectosChecked) ? true : false, array('class' => 'name')) }}
                                         {{ $value->nombre }}</label>
                                     <br /> @endforeach
-                                
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                                <button type="submit" class="btn btn-success">Asignar Aspectos</button>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                                        <button type="submit" class="btn btn-success">Analizar Aspectos</button>
+                                    </div>
+                                </div>
+                        {!! Form::close() !!}
+                                    
+                                    @else
+                                    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                                        <button type="submit" class="btn btn-success"><a href="{{route('foda-analisis-ambiente-interno', $idPerfil)}}">Sin Aspectos</a></button>
+                                    </div>
+                                    @endif
                             </div>
                         </div>
-                        {!! Form::close() !!}
                     </div>
-
                 </div>
             </div>
         </div>
-    </div>
-</div>
-@endsection
+        @endsection

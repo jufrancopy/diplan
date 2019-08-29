@@ -18,6 +18,14 @@ class FodaPerfil extends Model
 
     }
 
+    public function aspectos(){
+        
+        return $this->belongsToMany('App\Admin\FodaAspecto');
+
+    }
+
+   
+
     public function scopeNombre($query, $nombre)
     {
         if (trim($nombre) !="")

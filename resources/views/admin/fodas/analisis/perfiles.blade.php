@@ -51,9 +51,14 @@
                                         <td>{{ $perfil->nombre }}</td>
                                         <td>{{ $perfil->contexto }}</td>
                                         <td>
-                                            
-                                            <a class="btn btn-sm btn-success" href="{{ route('foda-analisis-ambientes',$perfil->id) }}"><i class="fa fa-search" aria-hidden="true"></i>
-</a>
+                                            <a class="btn btn-sm btn-success" href="{{ route('foda-analisis-ambientes',$perfil->id) }}">
+                                                <i class="fa fa-search" aria-hidden="true"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-sm btn-success" href="{{ route('foda-analisis-matriz',$perfil->id) }}">
+                                                <i class="fa fa-search" aria-hidden="true"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                     @endforeach

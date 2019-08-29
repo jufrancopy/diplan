@@ -9,21 +9,18 @@
                     <p>{{ $message }}</p>
                 </div>
                 @endif
-
-                
                 <div class="card">
                     <div class="card-header card-header-info">
-                        <h4 class="card-title ">{{ isset($analisis[0]->perfil->nombre) ? $analisis[0]->perfil->nombre : '' }} </h4>
-                       
-                        <div class="pull-right">
-                            <a class="btn btn-warning" href="{{ route('fodas-dashboard') }}"> Atras</a>
-                        </div>
+                        <h4 class="card-title ">{{$categoria->nombre }} </h4>
+                        <a href="{{route('foda-aspectos-categoria', ['idCategoria' => $idCategoria, 'idPerfil' => $perfil->id])}}" class="btn btn-success">+ Aspectos</a>
+                        
                     </div>
-
                     <div class="card-body">
                         <p id="tree1"></p>
+                        <div class="card text-center">
+                            <a href="{{route('foda-analisis-ambiente-interno', $perfil->id )}}" class="btn btn-success">Analizar otra Categoria</a>
+                        </div>
                     </div>
-
                 </div>
             </div>
         </div>

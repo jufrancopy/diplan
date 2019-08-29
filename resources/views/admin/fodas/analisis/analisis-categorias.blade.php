@@ -14,13 +14,13 @@
                 <div class="card">
                     <div class="card-header card-header-info">
                         <h4 class="card-title ">Categorias</h4>
-                        @can('role-create')
-                                <a class="btn btn-success" href="{{ route('foda-perfiles.edit', $idPerfil) }}"> Agregar Categorias</a>
-                        @endcan
-                        <div class="pull-right">
                         
-                            <a class="btn btn-warning" href="{{ route('foda-perfiles.show', $idPerfil) }}"> Atras</a>
-                        </div>
+                                <a class="btn btn-success" href="{{ route('foda-perfiles.edit', $idPerfil) }}"> Agregar Categorias</a>
+                                <a class="btn btn-warning" href="{{ route('foda-analisis-ambientes', $idPerfil) }}"> Cambiar Ambiente</a>
+
+
+                        
+                        
                     </div>
 
                     <div class="card-body">
@@ -29,9 +29,10 @@
                                 
                                     <!-- AquiBuscador -->
                                     <div class="float-right">
-                                        {!! Form::open(['route' => 'users.index','method' => 'GET', 'class'=>'navbar-form navbar-left pull-right','role'=>'search']) !!}
+                                            
+                                        {!! Form::open(['route' => array('foda-analisis-ambiente-interno', $idPerfil), 'method' => 'GET', 'class'=>'navbar-form navbar-left pull-right','role'=>'search']) !!}
                                         <div class="form-group">
-                                            {!! Form::text('ci',null, ['class'=>'form-control','placeholder'=>'Buscar Categoria']) !!}
+                                            {!! Form::text('nombre',null, ['class'=>'form-control','placeholder'=>'Buscar Categoria']) !!}
                                         </div>
                                         <button type="submit" class="btn btn-default pull-right">Buscar</button>
                                     </div>
@@ -42,7 +43,7 @@
                                         <tr>
                                             <th>Nro</th>
                                             <th>Categorias</th>
-                                            <th colspan = 3>Acciones</th>
+                                            <th colspan = 2>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -50,12 +51,13 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             <td>{{ $categoria->nombre }}</td>
-                                            <td><a href="{{route('foda-aspectos-categoria', ['idCategoria' => $categoria->id, 'idPerfil' => $idPerfil])}}">Asignar Aspectos</a></td>
-                                            <td><a href="">Cuantos Anlisis dentro de la categoria?</a></td>
-                                            <td><a href="{{route('foda-analisis-listado-categoria-aspectos', ['idCategoria' => $categoria->id, 'idPerfil' => $idPerfil])}}">Ver</a></td>
+                                            <td><a href="{{route('foda-analisis-listado-categoria-aspectos', ['idCategoria' => $categoria->id, 'idPerfil' => $idPerfil])}}">Analizar Aspectos</a></td>
                                         </tr>
                                         @endforeach
                                     </tbody>
+                                    <div class="card-footer" style="text-align: center;">
+                                        {!! $categorias->render() !!}
+                                    </div>
                                 </table>
                             </div>
                     </div>

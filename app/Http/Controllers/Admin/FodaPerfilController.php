@@ -120,7 +120,7 @@ class FodaPerfilController extends Controller
         $perfil->categorias()->sync($request->categoria_id); // este ya hace toda la magia!
         $perfil->fill($request->except(['categoria']))->save();
 
-        return redirect()->route('foda-perfiles.index')
+        return redirect()->route('foda-analisis-ambiente-interno', $perfil->id)
             ->with('success','Perfil actualizado satisfactoriamente');
        
     }

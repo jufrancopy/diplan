@@ -18,11 +18,11 @@ class FodaAnalisis extends Model
         return $this->belongsTo('App\Admin\FodaAspecto');
     }
 
-    // public function aspectos(){
+    public function aspectos(){
         
-    //     return $this->belongsToMany('App\Admin\FodaAspecto', 'foda_analisis_has_aspectos', 'analisis_id','aspecto_id' );
+        return $this->belongsToMany('App\Admin\FodaAspecto' );
 
-    // }
+    }
     
     public function perfil(){
         return $this->belongsTo('App\Admin\FodaPerfil');

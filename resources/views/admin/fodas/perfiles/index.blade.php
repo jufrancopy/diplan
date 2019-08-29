@@ -53,7 +53,7 @@
                                         <td>{{ $perfil->contexto }}</td>
                                         <td>
                                             <a class="btn btn-sm btn-default" href="{{ route('foda-perfiles.edit',$perfil->id) }}"><i class="far fa-edit"></i></a>
-                                            <a class="btn btn-sm btn-success" href="{{ route('foda-perfiles.show',$perfil->id) }}"><i class="fa fa-search" aria-hidden="true"></i>
+                                            <a class="btn btn-sm btn-success" href="{{ route('foda-analisis-ambientes',$perfil->id) }}"><i class="fa fa-search" aria-hidden="true"></i>
 </a>
                                             {!! Form::open(['route' => ['foda-perfiles.destroy', $perfil->id], 'method' => 'DELETE', 'style'=>'display:inline']) !!}
                                             <button class="btn btn-sm btn-danger" onclick="return confirm('Estas seguro de eliminar el perfil {{$perfil->nombre}}. Si lo eliminas también eliminarás los datos asociados a el.')">

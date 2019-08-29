@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Admin\FodaAspecto;
+use App\Admin\FodaCategoria;
+use App\Admin\FodaPerfil;
+use App\Admin\FodaAnalisis;
+
 class HomeController extends Controller
 {
     /**
@@ -23,6 +28,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $totalPerfiles = FodaPerfil::all();
+        $totalPerfiles = count($totalPerfiles);
+        
+        return view('home', get_defined_vars());
     }
 }
