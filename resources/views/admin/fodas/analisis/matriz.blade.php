@@ -21,26 +21,60 @@
                     </div>
 
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div class="table-bordered">
                             <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>
-                                            <h1>Análisis Interno</h1>
-                                        </th>
-                                        <th>
-                                            <h1>Análisis Externo</h1>
-                                        </th>
+                                        <th>Aspecto</th>
+                                        <th>Categoria</th>
+                                        <th>Ambiente</th>
+                                        <th>Ocurrencia</th>
+                                        <th>Impacto</th>
+                                        <th>Tipo</th>
+                                        <th>Estado</th>
                                     </tr>
+                                    @foreach($analisis as $v)
                                     <tr>
-                                        <th><div class="card text-center"><button type="button" class="btn btn-danger btn-lg"> DEBILIDAD</button></div></th>
-                                        <th><div class="card text-center"><button type="button" class="btn btn-danger btn-lg"> AMENAZA</button></div></th>
-                                    </tr>
+                                        <td>{{$v->aspecto->nombre}}</td>
+                                        <td>{{$v->aspecto->categoria->nombre}}</td>
+                                        <td>{{$v->aspecto->categoria->ambiente}}</td>
+                                        <td>{{$v->impacto}}</td>
+                                        <td>{{$v->ocurrencia}}</td>
+                                        @php 
+                                            $total = $v->ocurrencia * $valor->impacto;
+                                        @endphp
+                                            @switch ($total) 
+                                                @case($total >= 0.18)
+                                                    <td bgcolor="#1aeb51">Suficiente ({{$total}})</td>
+                                                    @break
+                                                @case($total <= 0.17)
+                                                    <td bgcolor="#FF0000">Insuficiente ({{$total}})</td>
+                                                    
+                                                    @break
+                                                @case($total = 0)
+                                                <td >Pendiente</td>
+                                                @break
+                                            @endswitch
+                                        @switch($v->tipo)
+                                            @case('Fortaleza')
+                                                <td><p class="badge badge-success">{{$v->tipo}}</p></td>
+                                            @break
 
-                                    <tr>
-                                        <th><div class="card text-center"><button type="button" class="btn btn-success btn-lg"> FORTALEZA</button></div></th>
-                                        <th><div class="card text-center"><button type="button" class="btn btn-success btn-lg"> OPORTUNIDAD</button></div></th>
+                                            @case('Oportunidad')
+                                                <td><p class="badge badge-success">{{$v->tipo}}</p></td>
+                                            @break
+                                            @case('Debilidad')
+                                                <td><p class="badge badge-danger">{{$v->tipo}}</p></td>
+                                            @break
+                                            @case('Amenaza')
+                                                <td><p class="badge badge-danger">{{$v->tipo}}</p></td>
+                                            @break
+                                            @default <td><p class="badge badge-default">Pendiente</p></td>
+                                            @endswitch
                                     </tr>
+                                    @endforeach
+
+                                    
                                     
 
                                     

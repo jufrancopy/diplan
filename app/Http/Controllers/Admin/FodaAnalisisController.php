@@ -112,13 +112,15 @@ class FodaAnalisisController extends Controller
         // }
         $idPerfil = $request->idPerfil;    
         $analisis = FodaAnalisis::where('perfil_id', '=', $idPerfil)->get();
-
+        
         //Array que guarda los analisis
-        $listAnalisis = [];
-        foreach ($analisis as $v){
-            $listAnalisis[] = $v->aspecto->nombre->categoria->nombre;
-        }
-        return $analisis;
+        // $listAnalisis = [];
+        // foreach ($analisis as $v){
+        //     $listAnalisis[] = $v->aspecto->nombre;
+        //     $listAnalisis[] = $v->aspecto->categoria->nombre;
+        // }
+        // return $analisis;
+
         return view('admin.fodas.analisis.matriz', get_defined_vars())
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
