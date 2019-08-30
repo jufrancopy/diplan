@@ -67,10 +67,58 @@ class FodaAnalisisController extends Controller
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
+    
+
+    public function aspectosCategoriaEdit(Request $request)
+    {
+        $idPerfil = $request->idPerfil;
+        $idCategoria = $request->idCategoria;
+        $categoria = FodaCategoria::find($idCategoria);
+        $analisis = FodaAnalisis::where('perfil_id', '=', $idPerfil)->get();
+        
+        //Array de aspectos asociados al perfil y la categoria
+        $aspectos = FodaAspecto::where('categoria_id', '=', $idCategoria)->get();
+        
+        $aspectosChecked=[];
+        
+        foreach ($analisis as $v) {
+            $aspectosChecked[] = $v->aspecto->id;
+        }
+        
+        return view('admin.fodas.analisis.aspectos-edit', get_defined_vars())
+            ->with('i', ($request->input('page', 1) - 1) * 5);
+    
+    }
+
     public function matriz(Request $request, $idPerfil)
     {
-        $fodas = FodaAnalisis::orderBy('id', 'ASC')->get();
+        // $analisis = FodaAnalisis::where('perfil_id', '=', $idPerfil)
+        //     ->join('foda_aspectos', 'foda_analisis.aspecto_id', '=', 'foda_aspectos.id')
+        //     ->join('foda_categorias', 'foda_aspectos.categoria_id', '=', 'foda_categorias.id')
+        //     ->select('foda_analisis.*', 'foda_aspectos.nombre', 'foda_categorias.nombre', 'foda_categorias.ambiente')
+        //     ->with('aspecto')
+        //     ->get();
         
+        // //Array que guarda todos los ambientes
+        // $ambientes = [];
+        // foreach ($analisis as $v){
+        //     $ambientes[] = $v->ambiente;
+        // }
+        
+        // //Array que guarda los aspetos del Perfil
+        // $aspectos = [];
+        // foreach ($analisis as $v){
+        //     $aspectos[] = $v->aspecto->nombre;
+        // }
+        $idPerfil = $request->idPerfil;    
+        $analisis = FodaAnalisis::where('perfil_id', '=', $idPerfil)->get();
+
+        //Array que guarda los analisis
+        $listAnalisis = [];
+        foreach ($analisis as $v){
+            $listAnalisis[] = $v->aspecto->nombre->categoria->nombre;
+        }
+        return $analisis;
         return view('admin.fodas.analisis.matriz', get_defined_vars())
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -162,10 +210,6 @@ class FodaAnalisisController extends Controller
             $aspectosChecked[] = $v->aspecto->id;
         }
         
-
-        //Aqui me quede Jueves 29/08//
-
-
         return view('admin.fodas.analisis.aspectos', get_defined_vars())
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -272,16 +316,39 @@ class FodaAnalisisController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $analisis = FodaAnalisis::find($id);
-        $idPerfil = $analisis->perfil_id;
-        $aspectoID = $analisis->aspecto_id;
-        $aspectos = FodaAspecto::find($aspectoID);
-        $categoriaID = $aspectos->categoria_id;
-        $categoria = FodaCategoria::find($categoriaID); 
-        
-        $analisis->fill($request->all())->save();
+        $input = $request->all();
+            $i = 0;
+            $count = count($input['aspecto_id']);
+            while($i < $count){
 
-        return redirect()->route('foda-listado-categorias-aspectos', ['idCategoria' => $categoria->id, 'idPerfil' => $idPerfil])
+                $data[] = array(
+                    'user_id'       => $request->user_id,
+                    'aspecto_id'    => $request->aspecto_id[$i],
+                    'perfil_id'     => $request->perfil_id,
+                    'tipo'          => $request->tipo,
+                    'ocurrencia'    => $request->ocurrencia,
+                    'impacto'       => $request->impacto,
+                    
+                );
+                $i++;
+            }
+
+            $j = 0;
+            $count1 = count($input['aspecto_id']);
+            while($j < $count1){
+                FodaAnalisis::where('aspecto_id',$data[$j]['aspecto_id'])->updateOrCreate($data[$j]);
+                $j++;
+            }
+
+            $analisis = FodaAnalisis::find($id);
+            $idPerfil = $analisis->perfil_id;
+            $aspectoID = $analisis->aspecto_id;
+            $aspectos = FodaAspecto::find($aspectoID);
+            $categoriaID = $aspectos->categoria_id;
+            $categoria = FodaCategoria::find($categoriaID); 
+            
+
+             return redirect()->route('foda-listado-categorias-aspectos', ['idCategoria' => $categoria->id, 'idPerfil' => $idPerfil])
             ->with('success', 'Analizado satisfactoriamente');
     }
 

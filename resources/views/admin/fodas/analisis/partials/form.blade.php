@@ -1,5 +1,6 @@
 {{ Form::hidden('user_id', auth()->user()->id) }}
 {{ Form::hidden('perfil_id', $analisis->perfil_id) }}
+{{ Form::hidden('aspecto_id', $analisis->aspecto_id) }}
 
 <div class="form-group">
 {{  Form::label('tipo', 'Tipo:')    }}<br>

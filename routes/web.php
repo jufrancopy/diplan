@@ -9,6 +9,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+if(version_compare(PHP_VERSION, '7.2.0', '>=')) {
+    error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+}
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -40,6 +44,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('foda-ambiente-interno/{idCategoria}/{idPerfil}', 'Admin\FodaAnalisisController@categoriasAmbienteInterno')->name('foda-ambiente-interno');
     Route::get('foda-ambiente-externo/{idPerfil}', 'Admin\FodaAnalisisController@categoriasAmbienteExterno')->name('foda-ambiente-externo');
     Route::get('foda-aspectos-categoria/{idCategoria}/{idPerfil}', 'Admin\FodaAnalisisController@aspectosCategoria')->name('foda-aspectos-categoria');
+
+    Route::get('foda-aspectos-categoria/{idCategoria}/{idPerfil}/edit', 'Admin\FodaAnalisisController@aspectosCategoriaEdit')->name('foda-aspectos-categoria-edit');
     Route::get('foda-analisis-asignar-aspectos/{idPerfil}', 'Admin\FodaAnalisisController@asignarAspectos')->name('ffoda-analisis-asignar-aspectos');
     Route::post('foda-ponderar/{id}/ponderar', 'Admin\FodaAnalisisController@ponderar')->name('foda-ponderar');
     Route::get('foda-listado-perfiles', 'Admin\FodaAnalisisController@listadoPerfiles')->name('foda-listado-perfiles');

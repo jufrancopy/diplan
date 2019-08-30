@@ -41,7 +41,7 @@
                                         <th>No</th>
                                         <th>Nombre</th>
                                         <th>Contexto</th>
-                                        <th width="280px">Accion</th>
+                                        <th colspan=2>Accion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,8 +56,8 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <a class="btn btn-sm btn-success" href="{{ route('foda-analisis-matriz',$perfil->id) }}">
-                                                <i class="fa fa-search" aria-hidden="true"></i>
+                                            <a class="btn btn-sm btn-warning" href="{{ route('foda-analisis-matriz',$perfil->id) }}">
+                                                <i class="fa fa-book" aria-hidden="true"></i>
                                             </a>
                                         </td>
                                     </tr>

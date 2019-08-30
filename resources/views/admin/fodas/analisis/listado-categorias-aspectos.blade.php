@@ -12,7 +12,7 @@
                 <div class="card">
                     <div class="card-header card-header-info">
                         <h4 class="card-title ">{{$categoria->nombre }} </h4>
-                        <a href="{{route('foda-aspectos-categoria', ['idCategoria' => $idCategoria, 'idPerfil' => $perfil->id])}}" class="btn btn-success">+ Aspectos</a>
+                        <a href="{{route('foda-aspectos-categoria-edit', ['idCategoria' => $idCategoria, 'idPerfil' => $perfil->id])}}" class="btn btn-success">+ Aspectos</a>
                         
                     </div>
                     <div class="card-body">
