@@ -111,7 +111,13 @@ class FodaAnalisisController extends Controller
         //     $aspectos[] = $v->aspecto->nombre;
         // }
         $idPerfil = $request->idPerfil;    
-        $analisis = FodaAnalisis::where('perfil_id', '=', $idPerfil)->get();
+
+
+        $analisis = FodaAnalisis::
+            select(DB::raw('foda_analisis.*,((foda_analisis.ocurrencia * foda_analisis.impacto) > 0.18) as matriz, 
+                          (foda_analisis.ocurrencia * foda_analisis.impacto) as resultado '))
+            ->where('perfil_id', '=', $idPerfil)
+            ->get();
         
         //Array que guarda los analisis
         // $listAnalisis = [];

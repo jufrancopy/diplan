@@ -41,17 +41,16 @@
                                         <td>{{$v->impacto}}</td>
                                         <td>{{$v->ocurrencia}}</td>
                                         @php 
-                                            $total = $v->ocurrencia * $valor->impacto;
+                                            $total = number_format($v->resultado,2);
                                         @endphp
                                             @switch ($total) 
                                                 @case($total >= 0.18)
                                                     <td bgcolor="#1aeb51">Suficiente ({{$total}})</td>
                                                     @break
                                                 @case($total <= 0.17)
-                                                    <td bgcolor="#FF0000">Insuficiente ({{$total}})</td>
-                                                    
-                                                    @break
-                                                @case($total = 0)
+                                                    <td bgcolor="#eb4034">Insuficiente ({{$total}})</td>
+                                                    @break    
+                                                @case($total = 0.00)
                                                 <td >Pendiente</td>
                                                 @break
                                             @endswitch
@@ -73,12 +72,7 @@
                                             @endswitch
                                     </tr>
                                     @endforeach
-
-                                    
-                                    
-
-                                    
-                                </thead>
+                                    </thead>
                                 <tbody>
 
                                 </tbody>
