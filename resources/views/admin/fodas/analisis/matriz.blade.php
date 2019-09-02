@@ -145,12 +145,11 @@
                                             </table>
                                         </th>
                                     </tr>
-                                    
-
-                                    
                                 </thead>
                                 <tbody>
-
+                                <a href="{{ route('matriz-foda.pdf', $idPerfil) }}" class="btn btn-sm btn-primary">
+                            Descargar Matriz en PDF
+                                </a>
                                 </tbody>
                             </table>
                         </div>

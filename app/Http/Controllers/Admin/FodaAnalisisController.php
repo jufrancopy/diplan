@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use DB;
 use Illuminate\Database\Eloquent\Builder;
+use Barryvdh\DomPDF\Facade as PDF;
 
 use App\Admin\FodaAspecto;
 use App\Admin\FodaCategoria;
@@ -173,9 +174,9 @@ class FodaAnalisisController extends Controller
             ->where('tipo', 'Amenaza')
             ->get();    
 
-        $pdf = PDF::loadView('pdf.products', compact('products'));
-
-        return $pdf->download('listado.pdf');
+        $pdf = PDF::loadView('admin.fodas.analisis.matriz-pdf', get_defined_vars());
+        
+        return $pdf->download('matriz.pdf');
     }
     
     public function listadoCategoriaAspectos(Request $request)
