@@ -32,7 +32,10 @@
                                             <h3>Análisis Externo</h3>
                                         </th>
                                     </tr>
-                                    <tr>
+                                </thead>
+                                
+                                <tbody>
+                                <tr>
                                         <th>
                                             <div class="card text-center"><button type="button" class="btn btn-danger btn-lg"> DEBILIDAD</button></div>
                                             <table>
@@ -91,7 +94,8 @@
 
                                     <tr>
                                         <th>
-                                            <div class="card text-center"><button type="button" class="btn btn-success btn-lg"> FORTALEZA</button></div>
+                                        <div class="card text-center"><button type="button" class="btn btn-success btn-lg"> FORTALEZA</button></div>
+                                            
                                             <table>
                                                 <tr>
                                                 @foreach($fortalezas as $v)
@@ -145,13 +149,17 @@
                                             </table>
                                         </th>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                <a href="{{ route('matriz-foda.pdf', $idPerfil) }}" class="btn btn-sm btn-primary">
-                            Descargar Matriz en PDF
-                                </a>
                                 </tbody>
+                                
                             </table>
+                            <a href="{{ route('matriz-foda.pdf', $idPerfil) }}" class="btn btn-sm btn-info">
+                                        Descargar Matriz en PDF
+                            </a><br/>
+
+                            <a href="{{ route('foda-cruce-ambientes', $idPerfil) }}" class="btn btn-sm btn-info">
+                                        Gestionar Cruce de Ambientes
+                            </a>
+                            
                         </div>
                     </div>
 

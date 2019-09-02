@@ -56,4 +56,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('foda-analisis-matriz/{idPerfil}', 'Admin\FodaAnalisisController@matriz')->name('foda-analisis-matriz');
     Route::get('foda-categoria-aspectos/{idCategoria}', 'Admin\FodaCategoriaController@listaAspectosCategoria')->name('foda-categoria-aspectos');
     Route::get('descargar-matriz-foda/{idPerfil}', 'Admin\FodaAnalisisController@matrizPdf')->name('matriz-foda.pdf');
+    
+    Route::get('foda-cruce-ambientes/{idPerfil}', 'Admin\FodaCruceAmbienteController@index')->name('foda-cruce-ambientes');
+    Route::resource('foda-cruce-ambientes', 'Admin\FodaCruceAmbienteController');
+    
 });
