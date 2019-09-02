@@ -92,40 +92,40 @@ class FodaAnalisisController extends Controller
 
     public function matriz(Request $request, $idPerfil)
     {
-        // $analisis = FodaAnalisis::where('perfil_id', '=', $idPerfil)
-        //     ->join('foda_aspectos', 'foda_analisis.aspecto_id', '=', 'foda_aspectos.id')
-        //     ->join('foda_categorias', 'foda_aspectos.categoria_id', '=', 'foda_categorias.id')
-        //     ->select('foda_analisis.*', 'foda_aspectos.nombre', 'foda_categorias.nombre', 'foda_categorias.ambiente')
-        //     ->with('aspecto')
-        //     ->get();
-        
-        // //Array que guarda todos los ambientes
-        // $ambientes = [];
-        // foreach ($analisis as $v){
-        //     $ambientes[] = $v->ambiente;
-        // }
-        
-        // //Array que guarda los aspetos del Perfil
-        // $aspectos = [];
-        // foreach ($analisis as $v){
-        //     $aspectos[] = $v->aspecto->nombre;
-        // }
         $idPerfil = $request->idPerfil;    
+        $matriz =    0.18; 
 
+        //Ambiente Interno - Debilidad
+        $debilidades = FodaAnalisis::
+            where('perfil_id', '=', $idPerfil)
+            ->select(DB::raw('foda_analisis.*,(foda_analisis.ocurrencia * foda_analisis.impacto) as matriz'))
+            ->havingRaw("matriz > $matriz")
+            ->where('tipo', 'Debilidad')
+            ->get();
 
-        $analisis = FodaAnalisis::
-            select(DB::raw('foda_analisis.*,((foda_analisis.ocurrencia * foda_analisis.impacto) > 0.18) as matriz, 
-                          (foda_analisis.ocurrencia * foda_analisis.impacto) as resultado '))
-            ->where('perfil_id', '=', $idPerfil)
+        //Ambiente Interno - Fortaleza
+        $fortalezas = FodaAnalisis::
+            where('perfil_id', '=', $idPerfil)
+            ->select(DB::raw('foda_analisis.*,(foda_analisis.ocurrencia * foda_analisis.impacto) as matriz'))
+            ->havingRaw("matriz > $matriz")
+            ->where('tipo', 'Fortaleza')
             ->get();
         
-        //Array que guarda los analisis
-        // $listAnalisis = [];
-        // foreach ($analisis as $v){
-        //     $listAnalisis[] = $v->aspecto->nombre;
-        //     $listAnalisis[] = $v->aspecto->categoria->nombre;
-        // }
-        // return $analisis;
+        //Ambiente Externo - Oportunidad
+        $oportunidades = FodaAnalisis::
+            where('perfil_id', '=', $idPerfil)
+            ->select(DB::raw('foda_analisis.*,(foda_analisis.ocurrencia * foda_analisis.impacto) as matriz'))
+            ->havingRaw("matriz > $matriz")
+            ->where('tipo', 'Oportunidad')
+            ->get();
+            
+        //Ambiente Externo - Amenaza
+        $amenazas = FodaAnalisis::
+            where('perfil_id', '=', $idPerfil)
+            ->select(DB::raw('foda_analisis.*,(foda_analisis.ocurrencia * foda_analisis.impacto) as matriz'))
+            ->havingRaw("matriz > $matriz")
+            ->where('tipo', 'Amenaza')
+            ->get();    
 
         return view('admin.fodas.analisis.matriz', get_defined_vars())
             ->with('i', ($request->input('page', 1) - 1) * 5);
@@ -144,8 +144,7 @@ class FodaAnalisisController extends Controller
             ->with('aspecto')
             ->get();
         $perfil = FodaPerfil::find($idPerfil);
-        //$perfiles = FodaPerfil::nombre($request->get('nombre'))->orderBy('id', 'DESC')->paginate(10);
-
+        
         if ($analisis->isNotEmpty()) {
             // colección no está vacía
             return view('admin.fodas.analisis.listado-categorias-aspectos', get_defined_vars())
@@ -157,13 +156,10 @@ class FodaAnalisisController extends Controller
         }
     }
 
-
-    //Trabajado en fecha 23/08/2019 a las 15.00 hs
     public function analisisCategoriasAmbienteInterno(Request $request, $idPerfil)
     {
         $idPerfil = $request->idPerfil;
         $perfiles = FodaPerfil::find($idPerfil);
-        // $categorias=FodaCategoria::nombre($request->get('nombre'))->orderBy('id','DESC')->paginate(10);
         $categorias = $perfiles->categorias()->nombre($request->get('nombre'))->where('ambiente', 'Interno')->paginate(20);
 
         return view('admin.fodas.analisis.analisis-categorias', get_defined_vars())
@@ -175,8 +171,7 @@ class FodaAnalisisController extends Controller
         $idPerfil = $request->idPerfil;
         $perfiles = FodaPerfil::find($idPerfil);
         $categorias = $perfiles->categorias()->nombre($request->get('nombre'))->where('ambiente', 'Externo')->paginate(20);
-        // $categorias = $perfiles->categorias()->where('ambiente', 'Externo')->get();
-
+        
         return view('admin.fodas.analisis.analisis-categorias', get_defined_vars())
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -344,7 +339,7 @@ class FodaAnalisisController extends Controller
             $j = 0;
             $count1 = count($input['aspecto_id']);
             while($j < $count1){
-                FodaAnalisis::where('aspecto_id',$data[$j]['aspecto_id'])->updateOrCreate($data[$j]);
+                FodaAnalisis::where('aspecto_id',$data[$j]['aspecto_id'])->updateOrInsert($data[$j]);
                 $j++;
             }
 

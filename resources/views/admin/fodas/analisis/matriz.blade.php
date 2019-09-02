@@ -21,58 +21,134 @@
                     </div>
 
                     <div class="card-body">
-                        <div class="table-bordered">
+                        <div class="table-responsive">
                             <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Aspecto</th>
-                                        <th>Categoria</th>
-                                        <th>Ambiente</th>
-                                        <th>Ocurrencia</th>
-                                        <th>Impacto</th>
-                                        <th>Tipo</th>
-                                        <th>Estado</th>
+                                        <th>
+                                            <h1>Análisis Interno</h1>
+                                        </th>
+                                        <th>
+                                            <h1>Análisis Externo</h1>
+                                        </th>
                                     </tr>
-                                    @foreach($analisis as $v)
                                     <tr>
-                                        <td>{{$v->aspecto->nombre}}</td>
-                                        <td>{{$v->aspecto->categoria->nombre}}</td>
-                                        <td>{{$v->aspecto->categoria->ambiente}}</td>
-                                        <td>{{$v->impacto}}</td>
-                                        <td>{{$v->ocurrencia}}</td>
-                                        @php 
-                                            $total = number_format($v->resultado,2);
-                                        @endphp
-                                            @switch ($total) 
-                                                @case($total >= 0.18)
-                                                    <td bgcolor="#1aeb51">Suficiente ({{$total}})</td>
-                                                    @break
-                                                @case($total <= 0.17)
-                                                    <td bgcolor="#eb4034">Insuficiente ({{$total}})</td>
-                                                    @break    
-                                                @case($total = 0.00)
-                                                <td >Pendiente</td>
-                                                @break
-                                            @endswitch
-                                        @switch($v->tipo)
-                                            @case('Fortaleza')
-                                                <td><p class="badge badge-success">{{$v->tipo}}</p></td>
-                                            @break
+                                        <th>
+                                            <div class="card text-center"><button type="button" class="btn btn-danger btn-lg"> DEBILIDAD</button></div>
+                                            <table>
+                                                <tr>
+                                                @foreach($debilidades as $v)
+                                                    <td>{{$v->aspecto->nombre}}</td>
+                                                    @switch($v->tipo)
+                                                        @case('Fortaleza')
+                                                            <td><p class="badge badge-success">{{$v->tipo}}</p></td>
+                                                        @break
 
-                                            @case('Oportunidad')
-                                                <td><p class="badge badge-success">{{$v->tipo}}</p></td>
-                                            @break
-                                            @case('Debilidad')
-                                                <td><p class="badge badge-danger">{{$v->tipo}}</p></td>
-                                            @break
-                                            @case('Amenaza')
-                                                <td><p class="badge badge-danger">{{$v->tipo}}</p></td>
-                                            @break
-                                            @default <td><p class="badge badge-default">Pendiente</p></td>
-                                            @endswitch
+                                                        @case('Oportunidad')
+                                                            <td><p class="badge badge-success">{{$v->tipo}}</p></td>
+                                                        @break
+                                                        @case('Debilidad')
+                                                            <td><p class="badge badge-danger">{{$v->tipo}}</p></td>
+                                                        @break
+                                                        @case('Amenaza')
+                                                            <td><p class="badge badge-danger">{{$v->tipo}}</p></td>
+                                                        @break
+                                                        @default 
+                                                            <td><p class="badge badge-default">Pendiente</p></td>
+                                                    @endswitch
+                                                </tr>
+                                                @endforeach
+                                            </table>
+                                        </th>
+                                        <th><div class="card text-center"><button type="button" class="btn btn-danger btn-lg"> AMENAZA</button></div>
+                                        <table>
+                                                <tr>
+                                                @foreach($amenzas as $v)
+                                                    <td>{{$v->aspecto->nombre}}</td>
+                                                    @switch($v->tipo)
+                                                        @case('Fortaleza')
+                                                            <td><p class="badge badge-success">{{$v->tipo}}</p></td>
+                                                        @break
+
+                                                        @case('Oportunidad')
+                                                            <td><p class="badge badge-success">{{$v->tipo}}</p></td>
+                                                        @break
+                                                        @case('Debilidad')
+                                                            <td><p class="badge badge-danger">{{$v->tipo}}</p></td>
+                                                        @break
+                                                        @case('Amenaza')
+                                                            <td><p class="badge badge-danger">{{$v->tipo}}</p></td>
+                                                        @break
+                                                        @default 
+                                                            <td><p class="badge badge-default">Pendiente</p></td>
+                                                    @endswitch
+                                                </tr>
+                                                @endforeach
+                                            </table>
+                                        </th>
                                     </tr>
-                                    @endforeach
-                                    </thead>
+                                        
+
+                                    <tr>
+                                        <th>
+                                            <div class="card text-center"><button type="button" class="btn btn-success btn-lg"> FORTALEZA</button></div>
+                                            <table>
+                                                <tr>
+                                                @foreach($fortalezas as $v)
+                                                    <td>{{$v->aspecto->nombre}}</td>
+                                                    @switch($v->tipo)
+                                                        @case('Fortaleza')
+                                                            <td><p class="badge badge-success">{{$v->tipo}}</p></td>
+                                                        @break
+
+                                                        @case('Oportunidad')
+                                                            <td><p class="badge badge-success">{{$v->tipo}}</p></td>
+                                                        @break
+                                                        @case('Debilidad')
+                                                            <td><p class="badge badge-danger">{{$v->tipo}}</p></td>
+                                                        @break
+                                                        @case('Amenaza')
+                                                            <td><p class="badge badge-danger">{{$v->tipo}}</p></td>
+                                                        @break
+                                                        @default 
+                                                            <td><p class="badge badge-default">Pendiente</p></td>
+                                                    @endswitch
+                                                </tr>
+                                                @endforeach
+                                            </table>
+                                        </th>
+                                        <th>
+                                            <div class="card text-center"><button type="button" class="btn btn-success btn-lg"> OPORTUNIDAD</button></div>
+                                            <table>
+                                                <tr>
+                                                @foreach($oportunidades as $v)
+                                                    <td>{{$v->aspecto->nombre}}</td>
+                                                    @switch($v->tipo)
+                                                        @case('Fortaleza')
+                                                            <td><p class="badge badge-success">{{$v->tipo}}</p></td>
+                                                        @break
+
+                                                        @case('Oportunidad')
+                                                            <td><p class="badge badge-success">{{$v->tipo}}</p></td>
+                                                        @break
+                                                        @case('Debilidad')
+                                                            <td><p class="badge badge-danger">{{$v->tipo}}</p></td>
+                                                        @break
+                                                        @case('Amenaza')
+                                                            <td><p class="badge badge-danger">{{$v->tipo}}</p></td>
+                                                        @break
+                                                        @default 
+                                                            <td><p class="badge badge-default">Pendiente</p></td>
+                                                    @endswitch
+                                                </tr>
+                                                @endforeach
+                                            </table>
+                                        </th>
+                                    </tr>
+                                    
+
+                                    
+                                </thead>
                                 <tbody>
 
                                 </tbody>

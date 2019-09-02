@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 
 use App\Admin\FodaCategoria;
+use App\Admin\FodaAspecto;
 
 class FodaCategoriaController extends Controller
 {
@@ -63,6 +64,18 @@ class FodaCategoriaController extends Controller
         $categoria=FodaCategoria::find($id);
         return view('admin.fodas.categorias.show', get_defined_vars());
     }
+
+    public function listaAspectosCategoria(Request $request, $idCategoria)
+    {
+        $idCategoria = $request->idCategoria;
+        
+        $aspectos=FodaAspecto::where('categoria_id', '=', $idCategoria)->get();
+        
+        return view('admin.fodas.categorias.aspectos', get_defined_vars())
+                ->with('i', ($request->input('page', 1) - 1) * 5);
+    }
+
+    
 
     /**
      * Show the form for editing the specified resource.

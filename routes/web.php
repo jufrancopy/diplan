@@ -56,6 +56,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('foda-analisis-aspectos/{idPerfil}', 'Admin\FodaAnalisisController@analisisAspectos')->name('foda-analisis-aspectos');
     Route::get('foda-analisis-listado-categoria-aspectos/{idCategoria}/{idPerfil}', 'Admin\FodaAnalisisController@listadoCategoriaAspectos')->name('foda-analisis-listado-categoria-aspectos');
     Route::get('foda-analisis-matriz/{idPerfil}', 'Admin\FodaAnalisisController@matriz')->name('foda-analisis-matriz');
+    Route::get('foda-categoria-aspectos/{idCategoria}', 'Admin\FodaCategoriaController@listaAspectosCategoria')->name('foda-categoria-aspectos');
     
     
     

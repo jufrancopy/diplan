@@ -12,7 +12,7 @@
 
                 <div class="card">
                     <div class="card-header card-header-info">
-                        <h4 class="card-title ">Listado de Categorias</h4>
+                        <h4 class="card-title ">Aspectos</h4>
                         @can('role-create')
                         <a class="btn btn-success" href="{{ route('foda-categorias.create') }}"> Crear Nueva Categoria</a>
                         @endcan
@@ -41,34 +41,22 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nombre</th>
-                                        <th>Ambiente</th>
-                                        <th width="350px">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($categorias as $key => $categoria)
+                                    @foreach ($aspectos as $aspecto)
                                     <tr>
                                         <td>{{ ++$i }}</td>
-                                        <td>{{ $categoria->nombre }}</td>
-                                        <td>{{ $categoria->ambiente }}</td>
-                                        <td>
-                                            <a class="btn btn-sm btn-primary" href="{{ route('foda-categorias.edit',$categoria->id) }}">Editar</a>
-                                            {!! Form::open(['route' => ['foda-categorias.destroy', $categoria->id], 'method' => 'DELETE', 'style'=>'display:inline']) !!}
-                                            <button class="btn btn-sm btn-danger" onclick="return confirm('Estas seguro de eliminar el rol {{$categoria->nombre}}. Si lo eliminas también eliminarás los datos asociados a el.')">
-                                                Eliminar
-                                            </button>
-                                            {!! Form::close() !!}
-                                            <a class="btn btn-sm btn-info" href="{{ route('foda-categoria-aspectos',$categoria->id) }}">Aspectos</a>
-                                        </td>
+                                        <td>{{ $aspecto->nombre }}</td>
+                                        
+                                        
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="card-footer" style="text-align: center;">
-                        {!! $categorias->render() !!}
-                    </div>
+                    
                 </div>
             </div>
         </div>
