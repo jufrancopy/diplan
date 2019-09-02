@@ -26,10 +26,10 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            <h1>Análisis Interno</h1>
+                                            <h3>Análisis Interno</h3>
                                         </th>
                                         <th>
-                                            <h1>Análisis Externo</h1>
+                                            <h3>Análisis Externo</h3>
                                         </th>
                                     </tr>
                                     <tr>
@@ -63,7 +63,7 @@
                                         <th><div class="card text-center"><button type="button" class="btn btn-danger btn-lg"> AMENAZA</button></div>
                                         <table>
                                                 <tr>
-                                                @foreach($amenzas as $v)
+                                                @foreach($amenazas as $v)
                                                     <td>{{$v->aspecto->nombre}}</td>
                                                     @switch($v->tipo)
                                                         @case('Fortaleza')

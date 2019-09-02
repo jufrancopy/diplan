@@ -26,7 +26,8 @@
                             <table class="table table-striped table-hover">
                                 <!-- AquiBuscador -->
                                 <div class="float-right">
-                                    {!! Form::open(['route' => 'foda-categorias.index','method' => 'GET', 'class'=>'navbar-form navbar-left pull-right','perfil'=>'search']) !!}
+                                
+                                    {!! Form::open(['route' => array('foda-categoria-aspectos', $idCategoria),'method' => 'GET', 'class'=>'navbar-form navbar-left pull-right','perfil'=>'search']) !!}
                                     <div class="form-group">
                                         {!! Form::text('nombre',null, ['class'=>'form-control','placeholder'=>'Buscar']) !!}
                                     </div>

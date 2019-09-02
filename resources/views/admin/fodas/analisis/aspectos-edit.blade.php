@@ -10,11 +10,7 @@
                         <div class="pull-right">
                             <a class="btn btn-warning" href="{{route('foda-analisis-ambiente-interno', $idPerfil)}}"> Atras</a>
                         </div>
-                        
                     </div>
-
-                    
-
                     @if (count($errors) > 0)
                     <div class="alert alert-danger">
                         <strong>Whoops!</strong> Hubo algunos problemas con su entrada.<br><br>
@@ -27,8 +23,7 @@
                     @endif
 
                     <div class="card-body">
-                    {!! Form::model($analisis, ['route'=>['foda-analisis.update', $analisis[0]->id],
-			'method'=>'PUT'])	!!}
+                    {!! Form::model($analisis, ['route'=>['foda-analisis.update', $v->id],'method'=>'PUT'])	!!}
                         
                         <div class="content">
 
@@ -43,7 +38,6 @@
                                     {{ Form::hidden('categoria_id', $idCategoria) }}
 
                                     <!-- Esta parte del Codigo Imprime los aspectos relacionados a la categoria seleccionada -->
-
                                     @if (count($aspectos) > 1)
                                     <strong>Listado de Aspectos:</strong>
                                     <br /> @foreach($aspectos as $value)

@@ -1,4 +1,5 @@
-@extends('layouts.master') @section('content')
+@extends('layouts.master') 
+@section('content')
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -27,7 +28,7 @@
                     @endif
 
                     <div class="card-body">
-                        {!! Form::open(array('route' => 'foda-analisis.store','method'=>'POST')) !!}
+                        {!! Form::open(array('route' => 'foda-analisis.store','method'=>'POST', 'name' => 'f1')) !!}
                         <div class="content">
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -43,10 +44,14 @@
                                     <!-- Esta parte del Codigo Imprime los aspectos relacionados a la categoria seleccionada -->
 
                                     @if (count($aspectos) > 1)
-                                    <strong>Listado de Aspectos:</strong>
+                                    <strong>Listado de Aspectos:</strong> <br />
+                                    <a href="javascript:seleccionar_checkbox(1)">Marcar todos</a> | 
+                                    <a href="javascript:seleccionar_checkbox(0)">Marcar ninguno</a> 
+                                        
                                     <br /> @foreach($aspectos as $value)
                                     <label>{{ Form::checkbox('aspecto_id[]', $value->id, in_array($value->id, $aspectosChecked) ? true : false, array('class' => 'name')) }}
                                         {{ $value->nombre }}</label>
+                                        
                                     <br /> @endforeach
                                     </div>
                                 </div>
@@ -61,10 +66,24 @@
                                         <button type="submit" class="btn btn-success"><a href="{{route('foda-analisis-ambiente-interno', $idPerfil)}}">Sin Aspectos</a></button>
                                     </div>
                                     @endif
+                                
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        @section('scripts')
+        <script>
+      
+        function seleccionar_checkbox(activar){ 
+            for (i=0;i<document.f1.elements.length;i++) 
+                if(document.f1.elements[i].type == "checkbox") 
+                    document.f1.elements[i].checked=activar
+        } 
+        </script>
+        
         @endsection
+        @endsection
+        

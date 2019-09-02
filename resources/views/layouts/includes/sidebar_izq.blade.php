@@ -40,12 +40,5 @@
                 <p>Usuarios</p>
             </a>
         </li>
-        
-        <li class="nav-item ">
-            <a class="nav-link" href="#">
-                <i class="material-icons">library_books</i>
-                <p>Organigrama</p>
-            </a>
-        </li>
     </ul>
 </div>

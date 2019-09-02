@@ -68,8 +68,10 @@ class FodaCategoriaController extends Controller
     public function listaAspectosCategoria(Request $request, $idCategoria)
     {
         $idCategoria = $request->idCategoria;
+
         
-        $aspectos=FodaAspecto::where('categoria_id', '=', $idCategoria)->get();
+        
+        $aspectos=FodaAspecto::nombre($request->get('nombre'))->where('categoria_id', '=', $idCategoria)->get();
         
         return view('admin.fodas.categorias.aspectos', get_defined_vars())
                 ->with('i', ($request->input('page', 1) - 1) * 5);

@@ -39,12 +39,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('foda-categorias', 'Admin\FodaCategoriaController');
     Route::resource('foda-aspectos', 'Admin\FodaAspectoController');
     Route::resource('foda-analisis', 'Admin\FodaAnalisisController');
-    
     Route::get('foda-ponderaciones/{idAspecto}/{idPerfil}/ponderacion', 'Admin\FodaAnalisisController@ponderaciones')->name('foda-ponderaciones');
     Route::get('foda-ambiente-interno/{idCategoria}/{idPerfil}', 'Admin\FodaAnalisisController@categoriasAmbienteInterno')->name('foda-ambiente-interno');
     Route::get('foda-ambiente-externo/{idPerfil}', 'Admin\FodaAnalisisController@categoriasAmbienteExterno')->name('foda-ambiente-externo');
     Route::get('foda-aspectos-categoria/{idCategoria}/{idPerfil}', 'Admin\FodaAnalisisController@aspectosCategoria')->name('foda-aspectos-categoria');
-
     Route::get('foda-aspectos-categoria/{idCategoria}/{idPerfil}/edit', 'Admin\FodaAnalisisController@aspectosCategoriaEdit')->name('foda-aspectos-categoria-edit');
     Route::get('foda-analisis-asignar-aspectos/{idPerfil}', 'Admin\FodaAnalisisController@asignarAspectos')->name('ffoda-analisis-asignar-aspectos');
     Route::post('foda-ponderar/{id}/ponderar', 'Admin\FodaAnalisisController@ponderar')->name('foda-ponderar');
@@ -57,7 +55,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('foda-analisis-listado-categoria-aspectos/{idCategoria}/{idPerfil}', 'Admin\FodaAnalisisController@listadoCategoriaAspectos')->name('foda-analisis-listado-categoria-aspectos');
     Route::get('foda-analisis-matriz/{idPerfil}', 'Admin\FodaAnalisisController@matriz')->name('foda-analisis-matriz');
     Route::get('foda-categoria-aspectos/{idCategoria}', 'Admin\FodaCategoriaController@listaAspectosCategoria')->name('foda-categoria-aspectos');
-    
-    
-    
+    Route::get('descargar-matriz-foda/{idPerfil}', 'Admin\FodaAnalisisController@matrizPdf')->name('matriz-foda.pdf');
 });
