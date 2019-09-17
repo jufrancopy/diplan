@@ -45,6 +45,7 @@
                                         <tr>
                                             <td>{{ $categoria->nombre }}</td>
                                             <td><a href="{{route('foda-aspectos-categoria', ['idCategoria' => $categoria->id, 'idPerfil' => $idPerfil])}}">Ver Aspectos</a></td>
+                                            
                                         </tr>
                                         @endforeach
                                     </tbody>

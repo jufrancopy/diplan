@@ -9,7 +9,7 @@ class FodaPerfil extends Model
 {
     protected $table = "foda_perfiles";
     
-    protected $fillable = ['nombre','contexto', 'user_id'];
+    protected $fillable = ['nombre','contexto', 'user_id', 'modelo_id'];
     
     
     public function categorias(){
@@ -21,6 +21,12 @@ class FodaPerfil extends Model
     public function aspectos(){
         
         return $this->belongsToMany('App\Admin\FodaAspecto');
+
+    }
+
+    public function modelo(){
+        
+        return $this->belongsTo('App\Admin\FodaModelo');
 
     }
 

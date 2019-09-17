@@ -43,6 +43,7 @@
                                         <tr>
                                             <th>Nro</th>
                                             <th>Categorias</th>
+                                            <th>Aspectos</th>
                                             <th colspan = 2>Acciones</th>
                                         </tr>
                                     </thead>
@@ -51,7 +52,9 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             <td>{{ $categoria->nombre }}</td>
+                                            <td><span class="btn btn-info btn-circle">{{App\Admin\FodaAspecto::where('categoria_id', $categoria->id)->count()}}</span></td>
                                             <td><a href="{{route('foda-analisis-listado-categoria-aspectos', ['idCategoria' => $categoria->id, 'idPerfil' => $idPerfil])}}">Analizar Aspectos</a></td>
+                                            
                                         </tr>
                                         @endforeach
                                     </tbody>

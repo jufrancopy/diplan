@@ -1,22 +1,23 @@
 <!-- Inicio Cabecera-->
 @include('layouts.includes.cabecera')
 <!-- Fin de Cabecera-->
-<body class="">
+
+<body>
   <div class="wrapper ">
     <div class="sidebar" data-color="azure" data-background-color="white" data-image="#">
       <!-- Inicio Sidebar Izquierda -->
       @include('layouts.includes.sidebar_izq')
     </div>
     <div class="main-panel">
-      
+
       <!-- Inicio Navbar Superior -->
       @include('layouts.includes.nav_bar')
       <!-- Finaliza NavBar Superior -->
-      
+
       <!-- Contenido Principal -->
       <div class="content">
         <div class="container-fluid">
-          
+
           @if(session('info'))
           <div class="container">
             <div class="row">
@@ -43,10 +44,13 @@
             </div>
           </div>
           @endif
-          @yield('content')
-          
-          <!-- Inicio Pie -->
+          <main class="py-4">
+            <div class="container">
+              @yield('content')
+            </div>
+          </main> <!-- Inicio Pie -->
           @include('layouts.includes.pie')
           <!-- Fin Pie -->
-        </body>
-      </html>
+</body>
+
+</html>

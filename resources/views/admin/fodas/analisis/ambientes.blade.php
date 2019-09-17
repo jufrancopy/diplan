@@ -7,18 +7,18 @@
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header card-header-info">
-						<h4 class="card-title ">Selecccionar Ambiente</h4>
+						<h4 class="card-title ">Selecccionar Ambiente para el Perfil {{ $perfil->nombre}}</h4>
 
 						<div class="pull-right">
-							<a class="btn btn-warning" href="{{ route('fodas-dashboard') }}"> Atras</a>
+							<a class="btn btn-warning" href="{{ route('foda-listado-perfiles') }}"> Atras</a>
 						</div>
 					</div>
 
 					<div class="card-body">
 						<div class="table-responsive">
 							<table class="table table-striped table-hover">
-								<p><label>Perfil:</label> {{ $perfil->nombre}}</p>
 								<p><label>Contexto</label> {{ $perfil->contexto}}</p>
+								<p><label>Modelo:</label> {{ $perfil->modelo->nombre}}</p>
 								
 								<table class="table table-bordered">
 										<tr>

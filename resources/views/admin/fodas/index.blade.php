@@ -30,20 +30,13 @@
     <script>
         var data = [
         {
-            name: 'Categorías',
+            name: 'Configurar',
             children: [
-                { name: '<a href="{{route('foda-categorias.index')}}">Listar Categorias</a>'},
-                { name: '<a href="{{route('foda-categorias.create')}}">Crear Nueva Categoria</a>'},
+                { name: '<a href="{{route('foda-modelos.index')}}">Modelos</a>'},
+                
             ]
-        },
-
-        {
-            name: 'Aspectos',
-            children: [
-                { name: '<a href="{{route('foda-aspectos.index')}}">Listar Aspectos</a>'},
-                { name: '<a href="{{route('foda-aspectos.create')}}">Crear Nuevo Aspecto</a>'},
-            ]
-        },
+        },    
+        
 
         {
             name: 'Perfiles',

@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Admin\FodaPerfil;
 use App\Admin\FodaCategoria;
+use App\Admin\FodaModelo;
 
 class FodaPerfilController extends Controller
 {
@@ -24,13 +25,14 @@ class FodaPerfilController extends Controller
     public function index(Request $request)
     {  
         $perfiles=FodaPerfil::nombre($request->get('nombre'))->orderBy('id','DESC')->paginate(10);
-
-        // foreach ($perfiles->categorias as $categoria){
-        //     echo $categoria->nombre;
-        // }
         
         return view('admin.fodas.perfiles.index', get_defined_vars())
                 ->with('i', ($request->input('page', 1) - 1) * 5);
+    }
+
+    public function getCategorias($id)
+    {
+       return FodaCategoria::where('modelo_id', $id)->get();
     }
 
     /**
@@ -40,11 +42,8 @@ class FodaPerfilController extends Controller
      */
     public function create()
     {
-        $perfiles =FodaPerfil::orderBy('id','ASC')->pluck('nombre', 'id');
-        // $categorias =FodaCategoria::orderBy('id','ASC')->pluck('nombre', 'id');
+        $modelos = FodaModelo::orderBy('id', 'ASC')->pluck('nombre', 'id');
         $categorias = FodaCategoria::orderBy('nombre', 'ASC')->pluck('nombre','id')->toArray();
-        $categoriasChecked=[];
-
         
         return view('admin.fodas.perfiles.create', get_defined_vars());
     }
@@ -61,7 +60,6 @@ class FodaPerfilController extends Controller
         $perfil = FodaPerfil::create($request->except(['categoria_id']));
         $perfil->categorias()->attach($request->categoria_id);
         
-        
         return redirect()->route('foda-perfiles.index')
             ->with('success','Perfil creado satisfactoriamente');
     }
@@ -76,7 +74,6 @@ class FodaPerfilController extends Controller
     {
         $perfil=FodaPerfil::find($id);
         $categorias=$perfil->categorias()->orderBy('nombre', 'ASC')->get();
-        
         $categoriasChecked = [];
         
         foreach ($perfil->categorias as $categoria) {
@@ -94,11 +91,11 @@ class FodaPerfilController extends Controller
     public function edit($id)
     {
         $perfil=FodaPerfil::find($id);
-        $categorias =FodaCategoria::orderBy('id','ASC')->pluck('nombre', 'id');
+        $modelos = FodaModelo::orderBy('id', 'ASC')->pluck('nombre', 'id');
+        $categorias =FodaCategoria::orderBy('id','ASC')->where('modelo_id', $perfil->modelo_id)->pluck('nombre', 'id');
         
         $categoriasChecked=[];
-
-         // Obtener las categorias relacionadas al PERFIL
+        // Obtener las categorias relacionadas al PERFIL
          foreach ($perfil->categorias as $categoria) {
             // Acumular las categorias recolectadas en el array '$materiasChecked'.
             $categoriasChecked[] = $categoria->id;
@@ -117,11 +114,11 @@ class FodaPerfilController extends Controller
     public function update(Request $request, $id)
     {
         $perfil = FodaPerfil::find($id);
-        $perfil->categorias()->sync($request->categoria_id); // este ya hace toda la magia!
+        $perfil->categorias()->sync($request->categoria_id);
         $perfil->fill($request->except(['categoria']))->save();
 
-        return redirect()->route('foda-analisis-ambiente-interno', $perfil->id)
-            ->with('success','Perfil actualizado satisfactoriamente');
+        return redirect()->route('foda-perfiles.index')
+            ->with('success','Perfil actualizado el perfil'.$perfil->nombre);
        
     }
 

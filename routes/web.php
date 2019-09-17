@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
+
+
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -32,12 +36,13 @@ Route::group(['middleware' => ['auth']], function () {
     
     //Rutas del tipo get
     Route::get('accesos', 'Admin\AccesoController@index')->name('accesos');
-    Route::view('/fodas-dashboard', 'admin.fodas.index')->name('fodas-dashboard');
+    Route::view('fodas-dashboard', 'admin.fodas.index')->name('fodas-dashboard');
     Route::get('perfil-categorias/{id}', 'Admin\FodaAnalisisController@listarCategorias')->name('perfil-categorias');
     Route::resource('fodas', 'Admin\FodaController');
     Route::resource('foda-perfiles', 'Admin\FodaPerfilController');
     Route::resource('foda-categorias', 'Admin\FodaCategoriaController');
     Route::resource('foda-aspectos', 'Admin\FodaAspectoController');
+    Route::resource('foda-modelos', 'Admin\FodaModeloController');
     Route::resource('foda-analisis', 'Admin\FodaAnalisisController');
     Route::get('foda-ponderaciones/{idAspecto}/{idPerfil}/ponderacion', 'Admin\FodaAnalisisController@ponderaciones')->name('foda-ponderaciones');
     Route::get('foda-ambiente-interno/{idCategoria}/{idPerfil}', 'Admin\FodaAnalisisController@categoriasAmbienteInterno')->name('foda-ambiente-interno');
@@ -58,6 +63,20 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('descargar-matriz-foda/{idPerfil}', 'Admin\FodaAnalisisController@matrizPdf')->name('matriz-foda.pdf');
     
     Route::get('foda-cruce-ambientes/{idPerfil}', 'Admin\FodaCruceAmbienteController@index')->name('foda-cruce-ambientes');
+    Route::get('foda-cruce-pdf/{idPerfil}', 'Admin\FodaCruceAmbienteController@descargarCrucePdf')->name('foda-cruce-pdf');
+    
+    //Rutas Create 
+    Route::get('foda-cruce-ambientes-fo/{idPerfil}', 'Admin\FodaCruceAmbienteController@FO')->name('foda-cruce-ambientes-fo');
+    Route::get('foda-cruce-ambientes-do/{idPerfil}', 'Admin\FodaCruceAmbienteController@DO')->name('foda-cruce-ambientes-do');
+    Route::get('foda-cruce-ambientes-fa/{idPerfil}', 'Admin\FodaCruceAmbienteController@FA')->name('foda-cruce-ambientes-fa');
+    Route::get('foda-cruce-ambientes-da/{idPerfil}', 'Admin\FodaCruceAmbienteController@DA')->name('foda-cruce-ambientes-da');
     Route::resource('foda-cruce-ambientes', 'Admin\FodaCruceAmbienteController');
+    Route::get('foda-modelo-categorias/{idModelo}', 'Admin\FodaCategoriaController@listadoCategorias')->name('foda-modelo-categorias');
+    Route::get('foda-modelo-categoria-crear/{idModelo}', 'Admin\FodaCategoriaController@crearCategoria')->name('foda-modelo-categoria-crear');
+    Route::get('foda-aspectos-elegir-modelo', 'Admin\FodaAspectoController@elegirModelo')->name('foda-aspectos-elegir-modelo');
+    Route::get('foda-modelo-categoria-aspectos/{idCategoria}', 'Admin\FodaModeloController@listadoAspectos')->name('foda-modelo-categoria-aspectos');
+    Route::get('foda-modelo-categoria-aspectos-crear/{idCategoria}', 'Admin\FodaAspectoController@crearAspectos')->name('foda-modelo-categoria-aspectos-crear');
+    Route::get('/foda-perfiles-modelo/{id}/categorias','Admin\FodaPerfilController@getCategorias');
+ 
     
 });

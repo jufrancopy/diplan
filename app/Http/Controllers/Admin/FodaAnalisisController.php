@@ -59,7 +59,7 @@ class FodaAnalisisController extends Controller
         $categorias = $perfil->categorias()->orderBy('nombre', 'ASC')->get();
         
         $categoriasChecked = [];
-
+        
         foreach ($perfil->categorias as $categoria) {
             $categoriasChecked[] = $categoria->id;
         }
@@ -97,7 +97,8 @@ class FodaAnalisisController extends Controller
     public function matriz(Request $request, $idPerfil)
     {
         $idPerfil = $request->idPerfil;    
-        $matriz =    0.18; 
+        $perfil = FodaPerfil::find($idPerfil); 
+        $matriz =    0.17; 
 
         //Ambiente Interno - Debilidad
         $debilidades = FodaAnalisis::
@@ -139,8 +140,9 @@ class FodaAnalisisController extends Controller
     public function matrizPdf(Request $request, $idPerfil)
     {        
        
-        $idPerfil = $request->idPerfil;    
-        $matriz =    0.18; 
+        $idPerfil = $request->idPerfil;
+        $perfil = FodaPerfil::find($idPerfil);    
+        $matriz =    0.17; 
 
         //Ambiente Interno - Debilidad
         $debilidades = FodaAnalisis::
@@ -205,9 +207,13 @@ class FodaAnalisisController extends Controller
 
     public function analisisCategoriasAmbienteInterno(Request $request, $idPerfil)
     {
-        $idPerfil = $request->idPerfil;
+        $analisis = FodaAnalisis::where('perfil_id', $idPerfil)->get();
         $perfiles = FodaPerfil::find($idPerfil);
         $categorias = $perfiles->categorias()->nombre($request->get('nombre'))->where('ambiente', 'Interno')->paginate(20);
+        
+        foreach ($categorias as $categoria){
+            $v [] = $aspectos=FodaAspecto::where('categoria_id', $categoria->id)->get();
+        }
 
         return view('admin.fodas.analisis.analisis-categorias', get_defined_vars())
             ->with('i', ($request->input('page', 1) - 1) * 5);
@@ -366,35 +372,35 @@ class FodaAnalisisController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $input = $request->all();
-        $i = 0;
-        $count = count($input['aspecto_id']);
-        while($i < $count){
+        // $input = $request->all();
+        // $i = 0;
+        // $count = count($input['aspecto_id']);
+        // while($i < $count){
 
-            $data[] = array(
-                'user_id'       => $request->user_id,
-                'aspecto_id'    => $request->aspecto_id[$i],
-                'perfil_id'     => $request->perfil_id,
-                'tipo'          => $request->tipo,
-                'ocurrencia'    => $request->ocurrencia,
-                'impacto'       => $request->impacto,
-            );
-            $i++;
-        }
+        //     $data[] = array(
+        //         'user_id'       => $request->user_id,
+        //         'aspecto_id'    => $request->aspecto_id[$i],
+        //         'perfil_id'     => $request->perfil_id,
+        //         'tipo'          => $request->tipo,
+        //         'ocurrencia'    => $request->ocurrencia,
+        //         'impacto'       => $request->impacto,
+        //     );
+        //     $i++;
+        // }
 
-        $j = 0;
-        $count1 = count($input['aspecto_id']);
-        while($j < $count1){
-            FodaAnalisis::where('aspecto_id',$data[$j]['aspecto_id'])->updateOrCreate($data[$j]);
-            $j++;
-        }
+        // $j = 0;
+        // $count1 = count($input['aspecto_id']);
+        // while($j < $count1){
+        //     FodaAnalisis::where('aspecto_id',$data[$j]['aspecto_id'])->updateOrCreate($data[$j]);
+        //     $j++;
+        // }
         $analisis = FodaAnalisis::find($id);
         $idPerfil = $analisis->perfil_id;
         $aspectoID = $analisis->aspecto_id;
         $aspectos = FodaAspecto::find($aspectoID);
         $categoriaID = $aspectos->categoria_id;
         $categoria = FodaCategoria::find($categoriaID); 
-        //$analisis->fill($request->all())->save();
+        $analisis->fill($request->all())->save();
             
 
              return redirect()->route('foda-listado-categorias-aspectos', ['idCategoria' => $categoria->id, 'idPerfil' => $idPerfil])

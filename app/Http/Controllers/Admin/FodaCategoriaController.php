@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 
 use App\Admin\FodaCategoria;
 use App\Admin\FodaAspecto;
+use App\Admin\FodaCruceAmbiente;
+use App\Admin\FodaModelo;
 
 class FodaCategoriaController extends Controller
 {
@@ -35,24 +37,39 @@ class FodaCategoriaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('admin.fodas.categorias.create');
+    {   
+        $modelos = FodaModelo::orderBy('id', 'ASC')->pluck('nombre', 'id');
+        return view('admin.fodas.categorias.create', get_defined_vars());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function listadoCategorias(Request $request, $idModelo)
+    {
+        $idModelo = $request->idModelo;
+        $modelo = FodaModelo::find($idModelo);
+        $categorias = FodaCategoria::where('modelo_id','=', $idModelo)->paginate(10);
+        
+        
+       return view('admin.fodas.modelos.listado-categorias', get_defined_vars())
+        ->with('i', ($request->input('page', 1) - 1) * 5);;
+    }
+    
+
+    public function crearCategoria(Request $request, $idModelo)
+    {
+        $modelo = FodaModelo::find($idModelo);
+        
+        return view('admin.fodas.categorias.create', get_defined_vars());
+    }
+
+
     public function store(Request $request)
     {
         $categoria= FodaCategoria::create($request->all());
-
-        return redirect()->route('foda-categorias.index')
+        
+        return redirect()->route('foda-modelo-categorias', $categoria->modelo_id)
             ->with('success','Categoria creada satisfactoriamente');
     }
-
+    
     /**
      * Display the specified resource.
      *
@@ -67,10 +84,6 @@ class FodaCategoriaController extends Controller
 
     public function listaAspectosCategoria(Request $request, $idCategoria)
     {
-        $idCategoria = $request->idCategoria;
-
-        
-        
         $aspectos=FodaAspecto::nombre($request->get('nombre'))->where('categoria_id', '=', $idCategoria)->get();
         
         return view('admin.fodas.categorias.aspectos', get_defined_vars())
@@ -87,6 +100,7 @@ class FodaCategoriaController extends Controller
      */
     public function edit($id)
     {
+        $modelos = FodaModelo::orderBy('id', 'ASC')->pluck('nombre', 'id');
         $categoria=FodaCategoria::find($id);
         
         return view('admin.fodas.categorias.edit', get_defined_vars());
@@ -104,7 +118,7 @@ class FodaCategoriaController extends Controller
         $categoria=FodaCategoria::find($id);
         $categoria->fill($request->all())->save();
            
-        return redirect()->route('foda-categorias.index')
+        return redirect()->route('foda-modelo-categorias', $categoria->modelo_id)
             ->with('success','Categoria actualizada satisfactoriamente');
        
     }

@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-info">
-                        <h4 class="card-title ">Crear Nueva Categoría</h4>
+                        <h4 class="card-title ">Crear Nueva Categoría para el modelo {{$modelo->nombre}}</h4>
                     </div>
                     <div class="card-body">
                         {!! Form::open(['route' => 'foda-categorias.store','files'=>true]) !!}

@@ -50,8 +50,14 @@
 <!-- Scripts personalizados-->
 @yield('scripts')
 <script>
-$(document).ready(function() {
-$('.js-example-responsive').select2();
-// $('#roles').DataTable();
+$(".js-example-responsive").select2();
+$("#checkbox").click(function(){
+    if($("#checkbox").is(':checked') ){
+        $(".js-example-responsive > option").prop("selected","selected");
+        $(".js-example-responsive").trigger("change");
+    }else{
+        $(".js-example-responsive > option").removeAttr("selected");
+         $(".js-example-responsive").trigger("change");
+     }
 });
 </script>

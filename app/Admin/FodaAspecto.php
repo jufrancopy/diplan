@@ -11,8 +11,10 @@ class FodaAspecto extends Model
     protected $fillable = ['user_id','nombre', 'categoria_id'];
 
     public function categoria(){
-        return $this->belongsTo(FodaCategoria::class);
+        return $this->belongsTo('App\Admin\FodaCategoria');
     }
+    
+    
     public function scopeNombre($query, $nombre)
     {
         if (trim($nombre) !="")

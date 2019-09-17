@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Admin\FodaAspecto;
 use App\Admin\FodaCategoria;
+use App\Admin\FodaModelo;
 
 class FodaAspectoController extends Controller
 {
@@ -29,6 +30,16 @@ class FodaAspectoController extends Controller
                 ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
+    public function elegirModelo(Request $request)
+    {  
+        $modelos=FodaModelo::nombre($request->get('nombre'))->orderBy('id','DESC')->paginate(10);
+        
+        return view('admin.fodas.aspectos.modelos', get_defined_vars())
+                ->with('i', ($request->input('page', 1) - 1) * 5);
+    }
+
+    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -37,6 +48,14 @@ class FodaAspectoController extends Controller
     public function create()
     {
         $categorias =FodaCategoria::orderBy('id','ASC')->pluck('nombre', 'id');
+        
+        return view('admin.fodas.aspectos.create', get_defined_vars());
+    }
+
+    public function crearAspectos(Request $request, $idCategoria){
+
+        $categoria = FodaCategoria::find($idCategoria);
+        
         
         return view('admin.fodas.aspectos.create', get_defined_vars());
     }
@@ -51,7 +70,7 @@ class FodaAspectoController extends Controller
     {
         $aspecto= FodaAspecto::create($request->all());
 
-        return redirect()->route('foda-aspectos.index')
+        return redirect()->route('foda-modelo-categoria-aspectos', $aspecto->categoria_id)
             ->with('success','Aspecto creado satisfactoriamente');
     }
 
@@ -93,7 +112,7 @@ class FodaAspectoController extends Controller
         $aspecto->fill($request->all())->save();
            
         
-        return redirect()->route('foda-aspectos.index')
+        return redirect()->route('foda-modelo-categoria-aspectos', $aspecto->categoria_id)
             ->with('success','Aspecto actualizado satisfactoriamente');
        
     }
