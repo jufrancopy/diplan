@@ -46,8 +46,7 @@ class FodaCategoriaController extends Controller
     {
         $idModelo = $request->idModelo;
         $modelo = FodaModelo::find($idModelo);
-        $categorias = FodaCategoria::where('modelo_id','=', $idModelo)->paginate(10);
-        
+        $categorias = FodaCategoria::nombre($request->get('nombre'))->where('modelo_id','=', $idModelo)->paginate(10);
         
        return view('admin.fodas.modelos.listado-categorias', get_defined_vars())
         ->with('i', ($request->input('page', 1) - 1) * 5);;

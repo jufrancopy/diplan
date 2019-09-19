@@ -23,12 +23,11 @@ class FodaModeloController extends Controller
                 ->with('i', ($request->input('page', 1) - 1) * 5);
     }
     
-    public function listadoAspectos(Request $request, $idCategoria){
-        
+    public function listadoAspectos(Request $request, $idModelo, $idCategoria){
+        $idModelo = $request->idModelo;
+        $idCategoria = $request->idCategoria;
+        $categoria = FodaCategoria::where('id', '=', $idCategoria)->first();
         $aspectos=FodaAspecto::nombre($request->get('nombre'))->orderBy('id', 'DESC')->where('categoria_id', '=', $idCategoria)->get();
-        
-        $idModelo = $aspectos[0]->categoria->modelo_id;
-        
         
         return view ('admin.fodas.modelos.aspectos', get_defined_vars());
     }

@@ -74,8 +74,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('foda-modelo-categorias/{idModelo}', 'Admin\FodaCategoriaController@listadoCategorias')->name('foda-modelo-categorias');
     Route::get('foda-modelo-categoria-crear/{idModelo}', 'Admin\FodaCategoriaController@crearCategoria')->name('foda-modelo-categoria-crear');
     Route::get('foda-aspectos-elegir-modelo', 'Admin\FodaAspectoController@elegirModelo')->name('foda-aspectos-elegir-modelo');
-    Route::get('foda-modelo-categoria-aspectos/{idCategoria}', 'Admin\FodaModeloController@listadoAspectos')->name('foda-modelo-categoria-aspectos');
-    Route::get('foda-modelo-categoria-aspectos-crear/{idCategoria}', 'Admin\FodaAspectoController@crearAspectos')->name('foda-modelo-categoria-aspectos-crear');
+    Route::get('foda-modelo-categoria-aspectos/{idModelo}/{idCategoria}', 'Admin\FodaModeloController@listadoAspectos')->name('foda-modelo-categoria-aspectos');
+    Route::get('foda-modelo-categoria-aspectos-crear/{idCategoria}', 'Admin\FodaAspectoController@crearAspecto')->name('foda-modelo-categoria-aspectos-crear');
     Route::get('/foda-perfiles-modelo/{id}/categorias','Admin\FodaPerfilController@getCategorias');
  
     

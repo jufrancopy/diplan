@@ -52,10 +52,9 @@ class FodaAspectoController extends Controller
         return view('admin.fodas.aspectos.create', get_defined_vars());
     }
 
-    public function crearAspectos(Request $request, $idCategoria){
+    public function crearAspecto(Request $request, $idCategoria){
 
         $categoria = FodaCategoria::find($idCategoria);
-        
         
         return view('admin.fodas.aspectos.create', get_defined_vars());
     }
@@ -69,8 +68,11 @@ class FodaAspectoController extends Controller
     public function store(Request $request)
     {
         $aspecto= FodaAspecto::create($request->all());
-
-        return redirect()->route('foda-modelo-categoria-aspectos', $aspecto->categoria_id)
+        
+        $idModelo = $aspecto->categoria->modelo_id;
+        $idCategoria = $aspecto->categoria_id;
+        
+        return redirect()->route('foda-modelo-categoria-aspectos', ['idModelo'=>$idModelo, 'idCategoria'=>$idCategoria])
             ->with('success','Aspecto creado satisfactoriamente');
     }
 
@@ -110,9 +112,11 @@ class FodaAspectoController extends Controller
     {
         $aspecto=FodaAspecto::find($id);
         $aspecto->fill($request->all())->save();
-           
         
-        return redirect()->route('foda-modelo-categoria-aspectos', $aspecto->categoria_id)
+        $idModelo = $aspecto->categoria->modelo_id;
+        $idCategoria = $aspecto->categoria_id;   
+        
+        return redirect()->route('foda-modelo-categoria-aspectos', ['idModelo'=>$idModelo, 'idCategoria'=>$idCategoria])
             ->with('success','Aspecto actualizado satisfactoriamente');
        
     }

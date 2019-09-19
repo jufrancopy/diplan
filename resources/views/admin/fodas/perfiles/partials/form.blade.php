@@ -17,7 +17,7 @@
 
 <div class="form-group">
     {{ Form::label('categorias', 'Asingne una o variasCategorias:') }} 
-    <select multiple="multiple" name="categoria_id[]" id="categoria_id" class="js-example-responsive" style="width:100%">
+    <select multiple="multiple" name="categoria_id[]" id="categoria_id" class="categorias" style="width:100%">
     @foreach($categorias as $key => $value)
         {-- in_array verifica el valor (llave => valor) este contenido en el array --}
         <option value="{{ $key }}" {{ in_array($key, $categoriasChecked) ? 'selected' : null }}>{{ $value }}</option>
@@ -50,6 +50,17 @@ $(function(){
             $('#categoria_id').html(html_select);
         });
     }
+
+    $(".categorias").select2();
+$("#checkbox").click(function(){
+    if($("#checkbox").is(':checked') ){
+        $(".categorias > option").prop("selected","selected");
+        $(".categorias").trigger("change");
+    }else{
+        $(".categorias > option").removeAttr("selected");
+         $(".categorias").trigger("change");
+     }
+});
 </script>
 @endsection
 

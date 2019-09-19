@@ -12,9 +12,9 @@
 
                 <div class="card">
                     <div class="card-header card-header-info">
-                        <h4 class="card-title ">Aspectos de la Categoria </h4>
+                        <h4 class="card-title ">Aspectos de la Categoria {{$categoria->nombre}}</h4>
                         @can('role-create')
-                        <a class="btn btn-success" href="{{ route('foda-modelo-categoria-aspectos-crear', $idModelo) }}"> Crear Aspecto</a>
+                        <a class="btn btn-success" href="{{ route('foda-modelo-categoria-aspectos-crear', $idCategoria) }}"> Crear Aspecto</a>
                         @endcan
                         <div class="pull-right">
                             <a class="btn btn-warning" href="{{ route('foda-modelo-categorias', $idModelo) }}"> Atras</a>
@@ -28,7 +28,7 @@
                                 <!-- AquiBuscador -->
                                 <div class="float-right">
                                 
-                                    {!! Form::open(['route' => array('foda-modelo-categoria-aspectos', $idCategoria),'method' => 'GET', 'class'=>'navbar-form navbar-left pull-right','perfil'=>'search']) !!}
+                                    {!! Form::open(['route' => array('foda-modelo-categoria-aspectos', $idModelo, $idCategoria),'method' => 'GET', 'class'=>'navbar-form navbar-left pull-right','perfil'=>'search']) !!}
                                     <div class="form-group">
                                         {!! Form::text('nombre',null, ['class'=>'form-control','placeholder'=>'Buscar']) !!}
                                     </div>

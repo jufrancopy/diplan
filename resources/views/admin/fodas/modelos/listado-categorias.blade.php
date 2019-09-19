@@ -1,4 +1,4 @@
-@extends('layouts.master') 
+@extends('layouts.master')
 @section('content')
 <div class="content">
     <div class="container-fluid">
@@ -17,7 +17,7 @@
                         <a class="btn btn-success" href="{{ route('foda-modelo-categoria-crear', $idModelo) }}"> Crear Nueva Categoria</a>
                         @endcan
                         <div class="pull-right">
-                            <a class="btn btn-warning" href="{{ route('fodas-dashboard') }}"> Atras</a>
+                            <a class="btn btn-warning" href="{{ route('foda-modelos.index') }}"> Atras</a>
                         </div>
                     </div>
 
@@ -26,7 +26,7 @@
                             <table class="table table-striped table-hover">
                                 <!-- AquiBuscador -->
                                 <div class="float-right">
-                                    {!! Form::open(['route' => 'foda-categorias.index','method' => 'GET', 'class'=>'navbar-form navbar-left pull-right','perfil'=>'search']) !!}
+                                    {!! Form::open(['route' => array('foda-modelo-categorias', $modelo->id),'method' => 'GET', 'class'=>'navbar-form navbar-left pull-right','perfil'=>'search']) !!}
                                     <div class="form-group">
                                         {!! Form::text('nombre',null, ['class'=>'form-control','placeholder'=>'Buscar']) !!}
                                     </div>
@@ -57,11 +57,13 @@
                                             <a class="btn btn-primary btn-circle" href="{{ route('foda-categorias.edit',$categoria->id) }}"><i class="far fa-edit"></i></a>
                                             {!! Form::open(['route' => ['foda-categorias.destroy', $categoria->id], 'method' => 'DELETE', 'style'=>'display:inline']) !!}
                                             <button class="btn btn-danger btn-circle" onclick="return confirm('Estas seguro de eliminar el rol {{$categoria->nombre}}. Si lo eliminas también eliminarás los datos asociados a el.')">
-                                            <i class="fa fa-trash"></i>
+                                                <i class="fa fa-trash"></i>
                                             </button>
                                             {!! Form::close() !!}
-                                            <a href="{{route('foda-modelo-categoria-aspectos', $categoria->id)}}"><span class="btn btn-success btn-circle">{{App\Admin\FodaAspecto::where('categoria_id', $categoria->id)->count()}}</span></a>
-                                            
+                                            <a href="{{route('foda-modelo-categoria-aspectos',['idModelo'=>$categoria->modelo_id, 'idCategoria'=>$categoria->id])}}">
+                                                <span class="btn btn-success btn-circle">{{App\Admin\FodaAspecto::where('categoria_id', $categoria->id)->count()}}</span>
+                                            </a>
+
                                         </td>
                                     </tr>
                                     @endforeach
@@ -79,6 +81,3 @@
 </div>
 
 @endsection
-
-
-
